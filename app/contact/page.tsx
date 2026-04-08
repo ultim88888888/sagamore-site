@@ -1,0 +1,77 @@
+import type { Metadata } from "next";
+import { ContactForm } from "@/components/contact/ContactForm";
+
+export const metadata: Metadata = {
+  title: "Contact Us",
+  description:
+    "Get in touch with Sagamore Financial Group. Questions about business funding? We are here to help.",
+};
+
+export default function ContactPage() {
+  return (
+    <>
+      <section className="pt-28 sm:pt-36 pb-20 sm:pb-28 relative">
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(180deg, #FBF8F3 0%, #F5EFE5 70%, #EDE7DB 100%)",
+          }}
+        />
+        <div className="relative max-w-6xl mx-auto px-5 sm:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+            {/* Left — info */}
+            <div>
+              <p className="text-sm font-semibold tracking-widest uppercase text-amber-dark mb-4">
+                Contact Us
+              </p>
+              <h1 className="text-3xl sm:text-4xl font-bold text-navy mb-5 tracking-tight">
+                Let&apos;s talk about your funding needs
+              </h1>
+              <p className="text-ink-secondary text-lg leading-relaxed mb-10">
+                Have questions about our products? Not sure where to start? Reach
+                out and we will point you in the right direction. No pressure,
+                no obligation.
+              </p>
+
+              <div className="space-y-6">
+                <div>
+                  <h2 className="text-sm font-semibold text-ink mb-1">Email</h2>
+                  <a
+                    href="mailto:info@sagamorefinancialgroup.com"
+                    className="text-amber-dark hover:text-amber transition-colors cursor-pointer"
+                  >
+                    info@sagamorefinancialgroup.com
+                  </a>
+                </div>
+
+                <div>
+                  <h2 className="text-sm font-semibold text-ink mb-1">
+                    Response Time
+                  </h2>
+                  <p className="text-ink-secondary text-sm">
+                    We typically respond within one business day.
+                  </p>
+                </div>
+
+                <div>
+                  <h2 className="text-sm font-semibold text-ink mb-1">
+                    Office Hours
+                  </h2>
+                  <p className="text-ink-secondary text-sm">
+                    Monday through Friday, 9am &ndash; 6pm EST
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Right — form */}
+            <div>
+              <ContactForm />
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}

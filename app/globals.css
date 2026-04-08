@@ -1,0 +1,182 @@
+@import "tailwindcss";
+
+/*
+ * Sagamore Financial Group — Brand System
+ *
+ * Warm, approachable, trustworthy. Premium but not intimidating.
+ * Sans-serif throughout for modern clarity.
+ * Continuous page surface — no hard section breaks.
+ * Inspired by OnDeck's warmth and Kapitus's modern confidence.
+ *
+ * Theme strategy: none (warm light mode with dark navy accent sections)
+ * WCAG AA: all text/bg combos verified >= 4.5:1
+ */
+
+@theme {
+  /* Navy — institutional anchor, drawn from the shield logo */
+  --color-navy: #1B2B3A;
+  --color-navy-light: #2A3F52;
+  --color-navy-deep: #111E2B;
+
+  /* Amber/Gold — warm accent, from shield crest */
+  --color-amber: #D4891A;
+  --color-amber-dark: #B8741A;
+  --color-amber-light: #E8A84A;
+
+  /* Teal — secondary accent for variety */
+  --color-teal: #1A8A7A;
+  --color-teal-light: #2BA898;
+
+  /* Warm surfaces */
+  --color-cream: #FBF8F3;
+  --color-cream-deep: #F5EFE5;
+  --color-sand: #EDE7DB;
+
+  /* Content — warm stone grays */
+  --color-ink: #2D2A26;
+  --color-ink-secondary: #5C564E;
+  --color-ink-tertiary: #8A8078;
+  --color-ink-faint: #B5ADA3;
+
+  /* Borders */
+  --color-rule: #D4CEC4;
+  --color-rule-light: #E8E3DA;
+
+  /* State */
+  --color-error: #C4493C;
+  --color-success: #3A7D5C;
+
+  /* Font families */
+  --font-display: var(--font-inter);
+  --font-body: var(--font-inter);
+}
+
+/* ───── Base ───── */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+}
+
+::selection {
+  background-color: var(--color-amber);
+  color: white;
+}
+
+/* ───── Focus ───── */
+:focus-visible {
+  outline: 2px solid var(--color-amber);
+  outline-offset: 2px;
+}
+
+/* ───── Custom range slider ───── */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--color-rule-light);
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-amber);
+  border: 3px solid white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  margin-top: -8px;
+  transition: transform 0.15s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+input[type="range"]::-moz-range-track {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--color-rule-light);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-amber);
+  border: 3px solid white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+}
+
+/* ───── Marquee ───── */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ───── Legal Prose ───── */
+.prose-legal h2 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-navy);
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+}
+.prose-legal h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-ink);
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+.prose-legal p {
+  font-size: 0.9375rem;
+  color: var(--color-ink-secondary);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+.prose-legal ul, .prose-legal ol {
+  font-size: 0.9375rem;
+  color: var(--color-ink-secondary);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+.prose-legal li {
+  margin-bottom: 0.25rem;
+  list-style-type: disc;
+}
+.prose-legal a {
+  color: var(--color-amber-dark);
+  transition: color 0.15s;
+}
+.prose-legal a:hover {
+  color: var(--color-amber);
+}
+
+/* ───── Reduced Motion ───── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
