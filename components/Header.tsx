@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { LogoMark } from "@/components/Logo";
 
 const navLinks = [
   { href: "/services", label: "Services" },
@@ -31,7 +31,6 @@ export function Header() {
     };
   }, [mobileOpen]);
 
-  // Close mobile menu on any navigation
   function closeMobile() {
     setMobileOpen(false);
   }
@@ -40,22 +39,15 @@ export function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "bg-cream/95 backdrop-blur-md shadow-[0_1px_0_var(--color-rule-light)]"
+          ? "bg-white/90 backdrop-blur-xl shadow-[0_1px_0_var(--color-rule-light)]"
           : "bg-transparent"
       }`}
     >
       <nav className="max-w-6xl mx-auto px-5 sm:px-8 h-16 sm:h-18 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5 cursor-pointer" onClick={closeMobile}>
-          <Image
-            src="/shield.png"
-            alt="Sagamore Financial Group"
-            width={36}
-            height={37}
-            className="h-9 w-auto"
-            priority
-          />
-          <span className="text-navy font-semibold text-base tracking-tight hidden sm:block">
+          <LogoMark size={36} />
+          <span className="text-ink font-semibold text-base tracking-tight hidden sm:block">
             Sagamore Financial
           </span>
         </Link>
@@ -68,8 +60,8 @@ export function Header() {
               href={link.href}
               className={`text-sm font-medium tracking-wide transition-colors duration-150 cursor-pointer ${
                 pathname === link.href || pathname.startsWith(link.href + "/")
-                  ? "text-navy"
-                  : "text-ink-secondary hover:text-navy"
+                  ? "text-azure"
+                  : "text-ink-secondary hover:text-ink"
               }`}
             >
               {link.label}
@@ -77,7 +69,7 @@ export function Header() {
           ))}
           <Link
             href="/apply"
-            className="inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white bg-amber hover:opacity-85 rounded-lg transition-opacity duration-150 cursor-pointer"
+            className="inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white bg-azure hover:opacity-85 rounded-lg transition-opacity duration-150 cursor-pointer"
           >
             Get Started
           </Link>
@@ -87,7 +79,7 @@ export function Header() {
         <button
           type="button"
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden p-2 text-ink-secondary hover:text-navy transition-colors cursor-pointer"
+          className="md:hidden p-2 text-ink-secondary hover:text-ink transition-colors cursor-pointer"
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileOpen}
         >
@@ -118,7 +110,7 @@ export function Header() {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="md:hidden fixed inset-0 top-16 bg-cream/98 backdrop-blur-md z-40">
+        <div className="md:hidden fixed inset-0 top-16 bg-white/98 backdrop-blur-xl z-40">
           <div className="px-5 py-8 space-y-5">
             {navLinks.map((link) => (
               <Link
@@ -126,7 +118,7 @@ export function Header() {
                 href={link.href}
                 onClick={closeMobile}
                 className={`block text-lg font-medium cursor-pointer ${
-                  pathname === link.href ? "text-navy" : "text-ink-secondary"
+                  pathname === link.href ? "text-azure" : "text-ink-secondary"
                 }`}
               >
                 {link.label}
@@ -135,7 +127,7 @@ export function Header() {
             <Link
               href="/apply"
               onClick={closeMobile}
-              className="block w-full text-center px-6 py-3.5 text-base font-semibold text-white bg-amber hover:opacity-85 rounded-xl transition-opacity cursor-pointer mt-4"
+              className="block w-full text-center px-6 py-3.5 text-base font-semibold text-white bg-azure hover:opacity-85 rounded-xl transition-opacity cursor-pointer mt-4"
             >
               Get Started
             </Link>

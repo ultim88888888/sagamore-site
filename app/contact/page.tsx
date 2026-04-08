@@ -15,17 +15,17 @@ export default function ContactPage() {
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "linear-gradient(180deg, #FBF8F3 0%, #F5EFE5 70%, #EDE7DB 100%)",
+              "linear-gradient(180deg, var(--color-surface) 0%, var(--color-surface-warm) 70%, var(--color-surface-deep) 100%)",
           }}
         />
         <div className="relative max-w-6xl mx-auto px-5 sm:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
             {/* Left — info */}
             <div>
-              <p className="text-sm font-semibold tracking-widest uppercase text-amber-dark mb-4">
+              <p className="text-sm font-semibold tracking-widest uppercase text-azure mb-4">
                 Contact Us
               </p>
-              <h1 className="text-3xl sm:text-4xl font-bold text-navy mb-5 tracking-tight">
+              <h1 className="text-3xl sm:text-4xl font-bold text-ink mb-5 tracking-tight">
                 Let&apos;s talk about your funding needs
               </h1>
               <p className="text-ink-secondary text-lg leading-relaxed mb-10">
@@ -39,7 +39,7 @@ export default function ContactPage() {
                   <h2 className="text-sm font-semibold text-ink mb-1">Email</h2>
                   <a
                     href="mailto:info@sagamorefinancialgroup.com"
-                    className="text-amber-dark hover:text-amber transition-colors cursor-pointer"
+                    className="text-azure hover:text-azure-dark transition-colors cursor-pointer"
                   >
                     info@sagamorefinancialgroup.com
                   </a>

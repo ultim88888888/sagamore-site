@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const creditOptions = [
   { label: "Excellent", sublabel: "720+", multiplier: 8 },
@@ -35,20 +36,41 @@ export function HeroSection() {
 
   return (
     <section className="relative min-h-[105vh] flex items-center overflow-hidden">
-      {/* Warm ambient gradient — page opens with warmth */}
+      {/* Deep gradient background — azure to navy */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, #FBF8F3 0%, #F5EFE5 60%, #EDE7DB 100%)",
+            "linear-gradient(135deg, #0F1B2D 0%, #0D3F8A 40%, #1B6FEE 80%, #4D8EF4 100%)",
         }}
       />
-      {/* Subtle radial glow near the calculator */}
+
+      {/* Background photo — small business context */}
+      <div className="absolute inset-0 opacity-15">
+        <Image
+          src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=1600&q=80"
+          alt=""
+          fill
+          className="object-cover"
+          priority
+          sizes="100vw"
+        />
+      </div>
+
+      {/* Subtle mesh texture overlay */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
           background:
-            "radial-gradient(ellipse 70% 50% at 70% 35%, rgba(212,137,26,0.06) 0%, transparent 70%)",
+            "radial-gradient(ellipse 80% 50% at 20% 60%, rgba(0,201,167,0.12) 0%, transparent 60%), radial-gradient(ellipse 60% 40% at 80% 30%, rgba(77,142,244,0.15) 0%, transparent 50%)",
+        }}
+      />
+
+      {/* Bottom gradient fade into page surface */}
+      <div
+        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        style={{
+          background: "linear-gradient(to top, var(--color-surface), transparent)",
         }}
       />
 
@@ -56,25 +78,25 @@ export function HeroSection() {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           {/* Left column — messaging */}
           <div className="max-w-xl">
-            <p className="text-sm font-semibold tracking-widest uppercase text-amber-dark mb-5">
+            <p className="text-sm font-semibold tracking-widest uppercase text-accent mb-5">
               Business Funding, Built on Trust
             </p>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-[3.25rem] font-bold text-navy leading-[1.12] mb-5 tracking-tight">
+            <h1 className="text-4xl sm:text-5xl lg:text-[3.25rem] font-bold text-white leading-[1.12] mb-5 tracking-tight">
               The capital your business needs.{" "}
-              <span className="text-ink-secondary font-medium">
+              <span className="text-white/60 font-medium">
                 The partner it deserves.
               </span>
             </h1>
 
-            <p className="text-lg text-ink-secondary leading-relaxed max-w-lg mb-8">
+            <p className="text-lg text-white/70 leading-relaxed max-w-lg mb-8">
               Sagamore Financial Group matches your business with funding that
               fits &mdash; from working capital and SBA loans to equipment
               financing and beyond. One application, multiple options, zero
               guesswork.
             </p>
 
-            {/* Trust stats — inline */}
+            {/* Trust stats — inline on dark */}
             <div className="flex flex-wrap gap-x-8 gap-y-3 mb-8">
               {[
                 { value: "$45M+", label: "Capital Deployed" },
@@ -82,10 +104,10 @@ export function HeroSection() {
                 { value: "24hrs", label: "Avg. Turnaround" },
               ].map((stat) => (
                 <div key={stat.label}>
-                  <p className="text-2xl font-bold text-navy tabular-nums">
+                  <p className="text-2xl font-bold text-white tabular-nums">
                     {stat.value}
                   </p>
-                  <p className="text-xs text-ink-tertiary mt-0.5">
+                  <p className="text-xs text-white/50 mt-0.5">
                     {stat.label}
                   </p>
                 </div>
@@ -95,13 +117,13 @@ export function HeroSection() {
             <div className="flex flex-wrap gap-3">
               <Link
                 href="/apply"
-                className="inline-flex items-center justify-center px-7 py-3 text-base font-semibold text-white bg-amber hover:opacity-85 rounded-xl transition-opacity cursor-pointer"
+                className="inline-flex items-center justify-center px-7 py-3 text-base font-semibold text-white bg-accent hover:opacity-85 rounded-xl transition-opacity cursor-pointer"
               >
                 Start Your Application
               </Link>
               <Link
                 href="/services"
-                className="inline-flex items-center justify-center px-7 py-3 text-base font-medium text-ink-secondary border border-rule hover:border-ink rounded-xl transition-colors cursor-pointer"
+                className="inline-flex items-center justify-center px-7 py-3 text-base font-medium text-white/90 border border-white/25 hover:border-white/50 rounded-xl transition-colors cursor-pointer"
               >
                 View Services
               </Link>
@@ -110,8 +132,8 @@ export function HeroSection() {
 
           {/* Right column — Qualification Calculator */}
           <div className="lg:sticky lg:top-28">
-            <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-sm border border-rule-light">
-              <h2 className="text-lg font-bold text-navy mb-1">
+            <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-xl shadow-black/10">
+              <h2 className="text-lg font-bold text-ink mb-1">
                 What could you qualify for?
               </h2>
               <p className="text-sm text-ink-tertiary mb-6">
@@ -131,8 +153,8 @@ export function HeroSection() {
                       onClick={() => setCreditIndex(i)}
                       className={`px-3 py-2.5 rounded-lg text-sm font-medium transition-colors duration-150 cursor-pointer border ${
                         creditIndex === i
-                          ? "bg-navy text-white border-navy"
-                          : "bg-cream text-ink-secondary border-rule-light hover:border-rule"
+                          ? "bg-azure text-white border-azure"
+                          : "bg-surface text-ink-secondary border-rule-light hover:border-rule"
                       }`}
                     >
                       <span className="block">{opt.label}</span>
@@ -154,7 +176,7 @@ export function HeroSection() {
                   <label className="text-sm font-medium text-ink">
                     Monthly Revenue
                   </label>
-                  <span className="text-sm font-bold text-navy tabular-nums">
+                  <span className="text-sm font-bold text-azure tabular-nums">
                     {revenue >= 1_000_000
                       ? `$${(revenue / 1_000_000).toFixed(1)}M`
                       : `$${revenue.toLocaleString("en-US")}`}
@@ -177,11 +199,11 @@ export function HeroSection() {
               </div>
 
               {/* Result */}
-              <div className="text-center py-5 bg-cream rounded-xl mb-6">
+              <div className="text-center py-5 rounded-xl mb-6" style={{ background: "linear-gradient(135deg, #E8F0FE 0%, #E6FAF6 100%)" }}>
                 <p className="text-xs text-ink-tertiary mb-1.5 uppercase tracking-wide font-medium">
                   Estimated Funding
                 </p>
-                <p className="text-4xl sm:text-5xl font-bold text-navy tabular-nums tracking-tight">
+                <p className="text-4xl sm:text-5xl font-bold text-azure-deep tabular-nums tracking-tight">
                   {formatCurrency(estimated)}
                 </p>
               </div>
@@ -189,7 +211,7 @@ export function HeroSection() {
               {/* CTA */}
               <Link
                 href="/apply"
-                className="flex items-center justify-center w-full px-8 py-3.5 text-base font-semibold text-white bg-amber hover:opacity-85 rounded-xl transition-opacity cursor-pointer"
+                className="flex items-center justify-center w-full px-8 py-3.5 text-base font-semibold text-white bg-accent hover:opacity-85 rounded-xl transition-opacity cursor-pointer"
               >
                 See Your Options
               </Link>

@@ -22,11 +22,20 @@ const criteria = [
 
 export function Qualifications() {
   return (
-    <section className="py-20 sm:py-28">
-      <div className="max-w-6xl mx-auto px-5 sm:px-8">
+    <section className="py-20 sm:py-28 relative">
+      {/* Subtle background warmth */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(180deg, var(--color-surface) 0%, var(--color-surface-warm) 50%, var(--color-surface) 100%)",
+        }}
+      />
+
+      <div className="relative max-w-6xl mx-auto px-5 sm:px-8">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl sm:text-4xl font-bold text-navy mb-4 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl font-bold text-ink mb-4 tracking-tight">
               Think you might not qualify? You probably do.
             </h2>
             <p className="text-ink-secondary text-lg max-w-xl mx-auto leading-relaxed">
@@ -35,10 +44,13 @@ export function Qualifications() {
             </p>
           </div>
 
-          <div className="grid sm:grid-cols-3 gap-8 mb-12">
+          <div className="grid sm:grid-cols-3 gap-6 mb-12">
             {criteria.map((c) => (
-              <div key={c.label} className="text-center">
-                <p className="text-3xl font-bold text-navy mb-1 tabular-nums">
+              <div
+                key={c.label}
+                className="text-center bg-white rounded-2xl p-7 border border-rule-light"
+              >
+                <p className="text-3xl font-bold text-azure mb-1 tabular-nums">
                   {c.value}
                 </p>
                 <p className="text-sm font-semibold text-ink mb-1.5">
@@ -54,7 +66,7 @@ export function Qualifications() {
           <div className="text-center">
             <Link
               href="/apply"
-              className="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white bg-amber hover:opacity-85 rounded-xl transition-opacity cursor-pointer"
+              className="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white bg-accent hover:opacity-85 rounded-xl transition-opacity cursor-pointer"
             >
               Check Your Eligibility
             </Link>
