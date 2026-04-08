@@ -1,207 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import { categories } from "@/lib/products";
 
 export const metadata: Metadata = {
   title: "Services",
   description:
     "Explore our full suite of business funding products — from lines of credit and SBA loans to equipment financing, factoring, and commercial real estate.",
 };
-
-/* ─── Product Data ─── */
-
-interface Product {
-  name: string;
-  range: string;
-  description: string;
-  features: string[];
-}
-
-interface Category {
-  id: string;
-  title: string;
-  subtitle: string;
-  products: Product[];
-}
-
-const categories: Category[] = [
-  {
-    id: "working-capital",
-    title: "Working Capital",
-    subtitle:
-      "Flexible funding to cover payroll, inventory, and growth initiatives.",
-    products: [
-      {
-        name: "Line of Credit",
-        range: "$5K - $500K",
-        description:
-          "Draw funds as you need them and only pay interest on what you use. A revolving credit line that adapts to your cash flow cycle.",
-        features: [
-          "Revolving access -- draw and repay as needed",
-          "Interest only on outstanding balance",
-          "Decisions in as little as 24 hours",
-          "No prepayment penalties",
-        ],
-      },
-      {
-        name: "Term Loans",
-        range: "$10K - $2M",
-        description:
-          "A lump sum with predictable monthly payments over a fixed term. Ideal for expansion, hiring, or large purchases.",
-        features: [
-          "Fixed monthly payments for easy budgeting",
-          "Terms from 6 to 60 months",
-          "Competitive rates for qualified borrowers",
-          "Funds deposited within 48 hours of approval",
-        ],
-      },
-      {
-        name: "Bridge Loans",
-        range: "$25K - $1M",
-        description:
-          "Short-term capital to bridge a gap -- between funding rounds, seasonal revenue dips, or while waiting on receivables.",
-        features: [
-          "Fast turnaround for urgent needs",
-          "Flexible repayment structures",
-          "Terms from 3 to 18 months",
-          "Designed for transitional situations",
-        ],
-      },
-    ],
-  },
-  {
-    id: "asset-based",
-    title: "Asset-Based Funding",
-    subtitle:
-      "Convert your business assets into the capital you need today.",
-    products: [
-      {
-        name: "Equipment Financing",
-        range: "$10K - $5M",
-        description:
-          "Acquire machinery, vehicles, technology, or any business-critical equipment with financing that uses the asset itself as collateral.",
-        features: [
-          "Equipment serves as collateral",
-          "Up to 100% of equipment value financed",
-          "Fixed payments over the asset's useful life",
-          "Potential tax benefits through depreciation",
-        ],
-      },
-      {
-        name: "Factoring",
-        range: "$10K - $5M",
-        description:
-          "Sell your outstanding invoices at a discount and receive cash immediately. Stop waiting 30, 60, or 90 days for customers to pay.",
-        features: [
-          "Advances up to 90% of invoice value",
-          "Funding within 24-48 hours",
-          "Your customers pay the factor directly",
-          "No long-term debt on your balance sheet",
-        ],
-      },
-      {
-        name: "AR Financing",
-        range: "$25K - $5M",
-        description:
-          "Borrow against your accounts receivable without selling them. Maintain your customer relationships while accessing cash.",
-        features: [
-          "Borrow against receivables, retain ownership",
-          "Revolving facility grows with your AR",
-          "You maintain customer relationships",
-          "Flexible advance rates",
-        ],
-      },
-    ],
-  },
-  {
-    id: "real-estate",
-    title: "Real Estate",
-    subtitle:
-      "Financing solutions for commercial and residential properties.",
-    products: [
-      {
-        name: "Commercial Mortgage",
-        range: "$100K - $5M+",
-        description:
-          "Long-term financing for purchasing, refinancing, or renovating commercial real estate -- offices, retail, industrial, mixed-use.",
-        features: [
-          "Terms up to 25 years",
-          "Competitive fixed and variable rates",
-          "Purchase, refinance, and renovation",
-          "Multiple property types eligible",
-        ],
-      },
-      {
-        name: "Residential Mortgage",
-        range: "$100K - $3M",
-        description:
-          "Home purchase and refinance solutions for business owners. We understand self-employment income documentation.",
-        features: [
-          "Programs for self-employed borrowers",
-          "Bank statement qualification available",
-          "Competitive rates across loan types",
-          "Purchase, refinance, and cash-out options",
-        ],
-      },
-      {
-        name: "HELOC",
-        range: "$25K - $500K",
-        description:
-          "Tap into your home equity with a revolving line of credit. Use it for business investment, debt consolidation, or cash reserves.",
-        features: [
-          "Draw funds as needed, revolving access",
-          "Interest only on what you use",
-          "Business or personal use",
-          "Potential tax-deductible interest",
-        ],
-      },
-    ],
-  },
-  {
-    id: "specialty",
-    title: "Specialty Programs",
-    subtitle:
-      "Specialized funding vehicles for unique business needs.",
-    products: [
-      {
-        name: "SBA Loans",
-        range: "$50K - $5M",
-        description:
-          "Government-backed loans with some of the best rates and longest terms available. We guide you through the SBA process from start to finish.",
-        features: [
-          "Lowest available interest rates",
-          "Terms up to 25 years",
-          "7(a), 504, and Express programs",
-          "Full application guidance and support",
-        ],
-      },
-      {
-        name: "0% Business Credit Cards",
-        range: "$5K - $150K",
-        description:
-          "Build business credit while accessing 0% introductory APR financing. Strategic credit card stacking for maximum leverage.",
-        features: [
-          "0% intro APR up to 21 months",
-          "Build business credit history",
-          "Rewards and cashback on spending",
-          "Strategic card selection guidance",
-        ],
-      },
-      {
-        name: "Credit Repair",
-        range: "Consultation",
-        description:
-          "Not quite ready to fund? Our credit repair program helps you optimize your profile so you qualify for better rates and higher amounts.",
-        features: [
-          "Comprehensive credit analysis",
-          "Dispute resolution with bureaus",
-          "Score optimization strategies",
-          "Path-to-funding roadmap",
-        ],
-      },
-    ],
-  },
-];
 
 function CheckIcon() {
   return (
@@ -213,6 +19,25 @@ function CheckIcon() {
     >
       <path
         d="M3 8.5l3 3 7-7"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function ArrowIcon() {
+  return (
+    <svg
+      className="w-4 h-4"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M6 3l5 5-5 5"
         stroke="currentColor"
         strokeWidth="1.5"
         strokeLinecap="round"
@@ -263,7 +88,8 @@ export default function ServicesPage() {
         <div
           className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
           style={{
-            background: "linear-gradient(to top, var(--color-surface), transparent)",
+            background:
+              "linear-gradient(to top, var(--color-surface), transparent)",
           }}
         />
       </section>
@@ -298,12 +124,13 @@ export default function ServicesPage() {
 
             <div className="grid lg:grid-cols-3 gap-5">
               {category.products.map((product) => (
-                <div
+                <Link
                   key={product.name}
-                  className="rounded-2xl border border-rule-light bg-white p-6 sm:p-7 flex flex-col"
+                  href={`/services/${product.slug}`}
+                  className="group rounded-2xl border border-rule-light bg-white p-6 sm:p-7 flex flex-col hover:border-azure/30 transition-colors cursor-pointer"
                 >
                   <div className="mb-4">
-                    <h3 className="text-lg font-bold text-ink mb-1">
+                    <h3 className="text-lg font-bold text-ink mb-1 group-hover:text-azure transition-colors duration-150">
                       {product.name}
                     </h3>
                     <p className="text-sm font-semibold text-azure">
@@ -327,13 +154,11 @@ export default function ServicesPage() {
                     ))}
                   </ul>
 
-                  <Link
-                    href="/apply"
-                    className="inline-flex items-center justify-center w-full px-5 py-2.5 text-sm font-semibold text-white bg-azure hover:opacity-85 rounded-lg transition-opacity duration-150 cursor-pointer"
-                  >
-                    Apply for {product.name}
-                  </Link>
-                </div>
+                  <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-azure group-hover:gap-2.5 transition-all duration-200">
+                    Learn more
+                    <ArrowIcon />
+                  </span>
+                </Link>
               ))}
             </div>
           </div>

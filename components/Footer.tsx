@@ -3,11 +3,11 @@ import { LogoMark } from "@/components/Logo";
 
 const footerLinks = {
   Products: [
-    { label: "Line of Credit", href: "/services#working-capital" },
-    { label: "Term Loans", href: "/services#working-capital" },
-    { label: "SBA Loans", href: "/services#specialty" },
-    { label: "Equipment Financing", href: "/services#asset-based" },
-    { label: "Commercial Mortgage", href: "/services#real-estate" },
+    { label: "Line of Credit", href: "/services/line-of-credit" },
+    { label: "Term Loans", href: "/services/term-loans" },
+    { label: "SBA Loans", href: "/services/sba-loans" },
+    { label: "Equipment Financing", href: "/services/equipment-financing" },
+    { label: "Commercial Mortgage", href: "/services/commercial-mortgage" },
     { label: "All Services", href: "/services" },
   ],
   Company: [
