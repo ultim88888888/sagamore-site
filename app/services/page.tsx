@@ -56,7 +56,7 @@ export default function ServicesPage() {
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(135deg, #0F1B2D 0%, #0D3F8A 50%, #1B6FEE 100%)",
+              "linear-gradient(135deg, var(--color-navy) 0%, var(--color-azure-deep) 50%, var(--color-azure) 100%)",
           }}
         />
         <div className="absolute inset-0 opacity-10">

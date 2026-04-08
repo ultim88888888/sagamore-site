@@ -94,7 +94,7 @@ export function ContactForm() {
             onChange={(e) => setName(e.target.value)}
             required
             placeholder="Your name"
-            className="w-full px-4 py-3 text-sm bg-white border border-rule-light rounded-lg text-ink placeholder:text-ink-faint focus:border-azure focus:ring-0 transition-colors"
+            className="w-full px-4 py-3 text-sm bg-white border border-rule-light rounded-lg text-ink placeholder:text-ink-faint focus:border-azure focus:ring-1 focus:ring-azure/30 outline-none transition-colors"
           />
         </div>
 
@@ -109,7 +109,7 @@ export function ContactForm() {
             onChange={(e) => setEmail(e.target.value)}
             required
             placeholder="you@company.com"
-            className="w-full px-4 py-3 text-sm bg-white border border-rule-light rounded-lg text-ink placeholder:text-ink-faint focus:border-azure focus:ring-0 transition-colors"
+            className="w-full px-4 py-3 text-sm bg-white border border-rule-light rounded-lg text-ink placeholder:text-ink-faint focus:border-azure focus:ring-1 focus:ring-azure/30 outline-none transition-colors"
           />
         </div>
 
@@ -123,7 +123,7 @@ export function ContactForm() {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             placeholder="(555) 123-4567"
-            className="w-full px-4 py-3 text-sm bg-white border border-rule-light rounded-lg text-ink placeholder:text-ink-faint focus:border-azure focus:ring-0 transition-colors"
+            className="w-full px-4 py-3 text-sm bg-white border border-rule-light rounded-lg text-ink placeholder:text-ink-faint focus:border-azure focus:ring-1 focus:ring-azure/30 outline-none transition-colors"
           />
         </div>
 
@@ -138,7 +138,7 @@ export function ContactForm() {
             required
             rows={5}
             placeholder="Tell us how we can help..."
-            className="w-full px-4 py-3 text-sm bg-white border border-rule-light rounded-lg text-ink placeholder:text-ink-faint focus:border-azure focus:ring-0 transition-colors resize-none"
+            className="w-full px-4 py-3 text-sm bg-white border border-rule-light rounded-lg text-ink placeholder:text-ink-faint focus:border-azure focus:ring-1 focus:ring-azure/30 outline-none transition-colors resize-none"
           />
         </div>
       </div>

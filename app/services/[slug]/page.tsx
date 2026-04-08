@@ -118,7 +118,7 @@ export default async function ServicePage({
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(135deg, #0F1B2D 0%, #0D3F8A 50%, #1B6FEE 100%)",
+              "linear-gradient(135deg, var(--color-navy) 0%, var(--color-azure-deep) 50%, var(--color-azure) 100%)",
           }}
         />
         <div className="absolute inset-0 opacity-12">
@@ -266,7 +266,7 @@ export default async function ServicePage({
                   className="rounded-2xl p-6 sm:p-7"
                   style={{
                     background:
-                      "linear-gradient(135deg, #E8F0FE 0%, #E6FAF6 100%)",
+                      "linear-gradient(135deg, var(--color-azure-pale) 0%, var(--color-accent-pale) 100%)",
                   }}
                 >
                   <p className="text-base font-bold text-ink mb-2">
