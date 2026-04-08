@@ -23,21 +23,18 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [pathname]);
-
   // Lock body scroll when mobile menu is open
   useEffect(() => {
-    if (mobileOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "";
-    }
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
     return () => {
       document.body.style.overflow = "";
     };
   }, [mobileOpen]);
+
+  // Close mobile menu on any navigation
+  function closeMobile() {
+    setMobileOpen(false);
+  }
 
   return (
     <header
@@ -49,7 +46,7 @@ export function Header() {
     >
       <nav className="max-w-6xl mx-auto px-5 sm:px-8 h-16 sm:h-18 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 cursor-pointer">
+        <Link href="/" className="flex items-center gap-2.5 cursor-pointer" onClick={closeMobile}>
           <Image
             src="/shield.png"
             alt="Sagamore Financial Group"
@@ -127,6 +124,7 @@ export function Header() {
               <Link
                 key={link.href}
                 href={link.href}
+                onClick={closeMobile}
                 className={`block text-lg font-medium cursor-pointer ${
                   pathname === link.href ? "text-navy" : "text-ink-secondary"
                 }`}
@@ -136,6 +134,7 @@ export function Header() {
             ))}
             <Link
               href="/apply"
+              onClick={closeMobile}
               className="block w-full text-center px-6 py-3.5 text-base font-semibold text-white bg-amber hover:opacity-85 rounded-xl transition-opacity cursor-pointer mt-4"
             >
               Get Started
