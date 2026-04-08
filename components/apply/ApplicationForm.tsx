@@ -85,14 +85,16 @@ function InputField({
   label: string;
   required?: boolean;
 } & React.InputHTMLAttributes<HTMLInputElement>) {
+  const id = props.id ?? `apply-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
   return (
     <div>
-      <label className="block text-sm font-medium text-ink mb-1.5">
+      <label htmlFor={id} className="block text-sm font-medium text-ink mb-1.5">
         {label}
         {required && <span className="text-error ml-0.5">*</span>}
       </label>
       <input
         {...props}
+        id={id}
         required={required}
         className="w-full px-4 py-2.5 rounded-lg border border-rule text-ink bg-white placeholder:text-ink-faint focus:border-azure focus:ring-1 focus:ring-azure/30 outline-none transition-colors text-sm"
       />
@@ -110,14 +112,16 @@ function SelectField({
   options: string[];
   required?: boolean;
 } & React.SelectHTMLAttributes<HTMLSelectElement>) {
+  const id = props.id ?? `apply-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
   return (
     <div>
-      <label className="block text-sm font-medium text-ink mb-1.5">
+      <label htmlFor={id} className="block text-sm font-medium text-ink mb-1.5">
         {label}
         {required && <span className="text-error ml-0.5">*</span>}
       </label>
       <select
         {...props}
+        id={id}
         required={required}
         className="w-full px-4 py-2.5 rounded-lg border border-rule text-ink bg-white focus:border-azure focus:ring-1 focus:ring-azure/30 outline-none transition-colors text-sm cursor-pointer appearance-none"
         style={{

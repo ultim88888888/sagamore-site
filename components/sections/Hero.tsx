@@ -41,7 +41,7 @@ export function HeroSection() {
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(135deg, #0F1B2D 0%, #0D3F8A 40%, #1B6FEE 80%, #4D8EF4 100%)",
+            "linear-gradient(135deg, var(--color-navy) 0%, var(--color-azure-deep) 40%, var(--color-azure) 80%, var(--color-azure-light) 100%)",
         }}
       />
 
@@ -199,7 +199,7 @@ export function HeroSection() {
               </div>
 
               {/* Result */}
-              <div className="text-center py-5 rounded-xl mb-6" style={{ background: "linear-gradient(135deg, #E8F0FE 0%, #E6FAF6 100%)" }}>
+              <div className="text-center py-5 rounded-xl mb-6" style={{ background: "linear-gradient(135deg, var(--color-azure-pale) 0%, var(--color-accent-pale) 100%)" }}>
                 <p className="text-xs text-ink-tertiary mb-1.5 uppercase tracking-wide font-medium">
                   Estimated Funding
                 </p>

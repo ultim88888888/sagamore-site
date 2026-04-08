@@ -72,36 +72,3 @@ export function Button(props: ButtonProps) {
     </button>
   );
 }
-
-/**
- * Button variant for use on dark backgrounds (navy sections).
- */
-interface ButtonDarkProps {
-  href: string;
-  children: React.ReactNode;
-  variant?: "primary" | "outline";
-  size?: ButtonSize;
-  className?: string;
-}
-
-export function ButtonDark({
-  href,
-  children,
-  variant = "primary",
-  size = "lg",
-  className = "",
-}: ButtonDarkProps) {
-  const base =
-    "inline-flex items-center justify-center transition-all duration-150 cursor-pointer";
-  const sizeClass = sizeStyles[size];
-  const variantClass =
-    variant === "primary"
-      ? "bg-accent text-white hover:opacity-85 font-semibold"
-      : "border border-white/30 text-white hover:border-white/60 font-medium bg-transparent";
-
-  return (
-    <Link href={href} className={`${base} ${sizeClass} ${variantClass} ${className}`}>
-      {children}
-    </Link>
-  );
-}
