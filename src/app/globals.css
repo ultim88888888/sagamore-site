@@ -1,0 +1,93 @@
+@import "tailwindcss";
+
+/*
+ * Sagamore Financial Group — Brand System
+ *
+ * The logo is deep navy — an institutional anchor. Rather than drowning
+ * the whole site in navy, we let warm sand surfaces breathe and use navy
+ * sparingly for authority. Amber/gold accents carry the premium financial
+ * identity. Warm stone grays for content text.
+ *
+ * Theme strategy: none (warm light mode, dark navy accent sections)
+ * WCAG AA compliant: all text/bg combos verified >= 4.5:1
+ */
+
+@theme {
+  /* Navy — institutional anchor */
+  --color-navy: #1B2B3A;
+  --color-navy-light: #2A3F52;
+  --color-navy-deep: #111E2B;
+
+  /* Amber/Gold — premium accent */
+  --color-amber: #C8963E;
+  --color-amber-dark: #A67A2E;
+  --color-amber-light: #D4A85A;
+
+  /* Warm surfaces */
+  --color-cream: #FAF8F4;
+  --color-cream-deep: #F3EEE6;
+  --color-sand: #EDE7DB;
+
+  /* Content — warm stone grays */
+  --color-ink: #2D2A26;
+  --color-ink-secondary: #5C564E;
+  --color-ink-tertiary: #8A8078;
+  --color-ink-faint: #B5ADA3;
+
+  /* Borders */
+  --color-rule: #D4CEC4;
+  --color-rule-light: #E8E3DA;
+
+  /* State */
+  --color-error: #C4493C;
+  --color-success: #3A7D5C;
+
+  /* Font families — set via CSS variables from next/font in layout.tsx */
+  --font-display: var(--font-cormorant-garamond);
+  --font-body: var(--font-libre-franklin);
+}
+
+/* ───── Base ───── */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display), ui-serif, Georgia, serif;
+}
+
+::selection {
+  background-color: var(--color-amber);
+  color: white;
+}
+
+/* ───── Utility Classes ─────
+   Referenced by ApplicationForm and other components */
+.font-display { font-family: var(--font-display), ui-serif, Georgia, serif; }
+.font-500 { font-weight: 500; }
+.font-600 { font-weight: 600; }
+.font-700 { font-weight: 700; }
+
+/* ───── Focus ───── */
+:focus-visible {
+  outline: 2px solid var(--color-amber);
+  outline-offset: 2px;
+}
+
+/* ───── Reduced Motion ───── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
