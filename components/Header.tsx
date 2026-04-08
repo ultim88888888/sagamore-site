@@ -110,7 +110,7 @@ export function Header() {
 
       {/* Mobile Menu */}
       {mobileOpen && (
-        <div className="md:hidden fixed inset-0 top-16 bg-white/98 backdrop-blur-xl z-40">
+        <div className="md:hidden fixed inset-0 top-16 bg-white backdrop-blur-xl z-40">
           <div className="px-5 py-8 space-y-5">
             {navLinks.map((link) => (
               <Link
