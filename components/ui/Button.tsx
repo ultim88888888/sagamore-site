@@ -25,13 +25,13 @@ type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 const variantStyles: Record<ButtonVariant, string> = {
   primary:
-    "bg-amber text-white hover:opacity-85 font-semibold",
+    "bg-accent text-white hover:opacity-85 font-semibold",
   secondary:
-    "bg-navy text-white hover:opacity-85 font-semibold",
+    "bg-azure text-white hover:opacity-85 font-semibold",
   outline:
     "border border-rule text-ink hover:border-ink font-medium bg-transparent",
   ghost:
-    "text-ink-secondary hover:text-navy font-medium bg-transparent",
+    "text-ink-secondary hover:text-ink font-medium bg-transparent",
 };
 
 const sizeStyles: Record<ButtonSize, string> = {
@@ -75,7 +75,6 @@ export function Button(props: ButtonProps) {
 
 /**
  * Button variant for use on dark backgrounds (navy sections).
- * White text with amber or white accent.
  */
 interface ButtonDarkProps {
   href: string;
@@ -97,7 +96,7 @@ export function ButtonDark({
   const sizeClass = sizeStyles[size];
   const variantClass =
     variant === "primary"
-      ? "bg-amber text-white hover:opacity-85 font-semibold"
+      ? "bg-accent text-white hover:opacity-85 font-semibold"
       : "border border-white/30 text-white hover:border-white/60 font-medium bg-transparent";
 
   return (

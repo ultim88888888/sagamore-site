@@ -18,7 +18,7 @@ const metrics = [
 export function TrustMetrics() {
   return (
     <section
-      className="py-5 overflow-hidden border-y border-rule-light/60 bg-cream"
+      className="py-5 overflow-hidden border-y border-rule-light/60 bg-white"
       aria-label="Key business metrics"
     >
       <div
@@ -31,7 +31,7 @@ export function TrustMetrics() {
             key={i}
             className="text-sm font-medium text-ink-tertiary tracking-wide flex items-center gap-3 shrink-0"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-amber/50 shrink-0" />
+            <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
             {text}
           </span>
         ))}

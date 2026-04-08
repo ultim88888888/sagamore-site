@@ -1,50 +1,53 @@
 @import "tailwindcss";
 
 /*
- * Sagamore Financial Group — Brand System
+ * Sagamore Financial Group — Brand System v2
  *
- * Warm, approachable, trustworthy. Premium but not intimidating.
- * Sans-serif throughout for modern clarity.
- * Continuous page surface — no hard section breaks.
- * Inspired by OnDeck's warmth and Kapitus's modern confidence.
+ * VISUAL OVERHAUL: Bright, energetic, cohesive.
+ * Core blue anchors trust. Vibrant teal accent pops.
+ * Photography + gradient backgrounds = alive.
  *
- * Theme strategy: none (warm light mode with dark navy accent sections)
+ * Theme strategy: none (light mode with dark accent sections)
+ * Palette: Azure blue primary, electric teal accent, warm neutrals
  * WCAG AA: all text/bg combos verified >= 4.5:1
  */
 
 @theme {
-  /* Navy — institutional anchor, drawn from the shield logo */
-  --color-navy: #1B2B3A;
-  --color-navy-light: #2A3F52;
-  --color-navy-deep: #111E2B;
+  /* Azure — confident, modern blue. Primary brand anchor. */
+  --color-azure: #1B6FEE;
+  --color-azure-dark: #1458C2;
+  --color-azure-deep: #0D3F8A;
+  --color-azure-light: #4D8EF4;
+  --color-azure-pale: #E8F0FE;
 
-  /* Amber/Gold — warm accent, from shield crest */
-  --color-amber: #D4891A;
-  --color-amber-dark: #B8741A;
-  --color-amber-light: #E8A84A;
+  /* Teal Accent — vibrant, energetic. The "pop" color. */
+  --color-accent: #00C9A7;
+  --color-accent-dark: #00A88C;
+  --color-accent-light: #33D4B8;
+  --color-accent-pale: #E6FAF6;
 
-  /* Teal — secondary accent for variety */
-  --color-teal: #1A8A7A;
-  --color-teal-light: #2BA898;
+  /* Surfaces — clean with slight warmth */
+  --color-surface: #F8F9FC;
+  --color-surface-warm: #F3F4F8;
+  --color-surface-deep: #EBEDF3;
 
-  /* Warm surfaces */
-  --color-cream: #FBF8F3;
-  --color-cream-deep: #F5EFE5;
-  --color-sand: #EDE7DB;
-
-  /* Content — warm stone grays */
-  --color-ink: #2D2A26;
-  --color-ink-secondary: #5C564E;
-  --color-ink-tertiary: #8A8078;
-  --color-ink-faint: #B5ADA3;
+  /* Content — rich, readable */
+  --color-ink: #1A1D26;
+  --color-ink-secondary: #4A4F5E;
+  --color-ink-tertiary: #7A7F8E;
+  --color-ink-faint: #A8ADBF;
 
   /* Borders */
-  --color-rule: #D4CEC4;
-  --color-rule-light: #E8E3DA;
+  --color-rule: #D4D7E0;
+  --color-rule-light: #E6E8EF;
+
+  /* Dark sections */
+  --color-navy: #0F1B2D;
+  --color-navy-light: #1A2940;
 
   /* State */
-  --color-error: #C4493C;
-  --color-success: #3A7D5C;
+  --color-error: #E04040;
+  --color-success: #16A34A;
 
   /* Font families */
   --font-display: var(--font-inter);
@@ -59,7 +62,7 @@ html {
 }
 
 body {
-  background-color: var(--color-cream);
+  background-color: var(--color-surface);
   color: var(--color-ink);
   font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
 }
@@ -69,13 +72,13 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 ::selection {
-  background-color: var(--color-amber);
+  background-color: var(--color-azure);
   color: white;
 }
 
 /* ───── Focus ───── */
 :focus-visible {
-  outline: 2px solid var(--color-amber);
+  outline: 2px solid var(--color-azure);
   outline-offset: 2px;
 }
 
@@ -99,9 +102,9 @@ input[type="range"]::-webkit-slider-thumb {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: var(--color-amber);
+  background: var(--color-azure);
   border: 3px solid white;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 8px rgba(27, 111, 238, 0.3);
   margin-top: -8px;
   transition: transform 0.15s ease;
 }
@@ -120,9 +123,9 @@ input[type="range"]::-moz-range-thumb {
   width: 22px;
   height: 22px;
   border-radius: 50%;
-  background: var(--color-amber);
+  background: var(--color-azure);
   border: 3px solid white;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 8px rgba(27, 111, 238, 0.3);
 }
 
 /* ───── Marquee ───── */
@@ -135,7 +138,7 @@ input[type="range"]::-moz-range-thumb {
 .prose-legal h2 {
   font-size: 1.25rem;
   font-weight: 700;
-  color: var(--color-navy);
+  color: var(--color-azure-deep);
   margin-top: 2.5rem;
   margin-bottom: 0.75rem;
 }
@@ -164,11 +167,11 @@ input[type="range"]::-moz-range-thumb {
   list-style-type: disc;
 }
 .prose-legal a {
-  color: var(--color-amber-dark);
+  color: var(--color-azure);
   transition: color 0.15s;
 }
 .prose-legal a:hover {
-  color: var(--color-amber);
+  color: var(--color-azure-dark);
 }
 
 /* ───── Reduced Motion ───── */

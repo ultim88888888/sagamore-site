@@ -15,15 +15,15 @@ export default function ApplyPage() {
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "linear-gradient(180deg, #FBF8F3 0%, #F5EFE5 70%, #EDE7DB 100%)",
+              "linear-gradient(180deg, var(--color-surface) 0%, var(--color-surface-warm) 70%, var(--color-surface-deep) 100%)",
           }}
         />
         <div className="relative max-w-2xl mx-auto px-5 sm:px-8">
           <div className="mb-8">
-            <p className="text-sm font-semibold tracking-widest uppercase text-amber-dark mb-3">
+            <p className="text-sm font-semibold tracking-widest uppercase text-azure mb-3">
               Apply for Funding
             </p>
-            <h1 className="text-3xl sm:text-4xl font-bold text-navy mb-3 tracking-tight">
+            <h1 className="text-3xl sm:text-4xl font-bold text-ink mb-3 tracking-tight">
               Start your application
             </h1>
             <p className="text-ink-secondary leading-relaxed">

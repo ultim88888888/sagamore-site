@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "Services",
@@ -32,11 +33,11 @@ const categories: Category[] = [
     products: [
       {
         name: "Line of Credit",
-        range: "$5K – $500K",
+        range: "$5K - $500K",
         description:
           "Draw funds as you need them and only pay interest on what you use. A revolving credit line that adapts to your cash flow cycle.",
         features: [
-          "Revolving access — draw and repay as needed",
+          "Revolving access -- draw and repay as needed",
           "Interest only on outstanding balance",
           "Decisions in as little as 24 hours",
           "No prepayment penalties",
@@ -44,7 +45,7 @@ const categories: Category[] = [
       },
       {
         name: "Term Loans",
-        range: "$10K – $2M",
+        range: "$10K - $2M",
         description:
           "A lump sum with predictable monthly payments over a fixed term. Ideal for expansion, hiring, or large purchases.",
         features: [
@@ -56,9 +57,9 @@ const categories: Category[] = [
       },
       {
         name: "Bridge Loans",
-        range: "$25K – $1M",
+        range: "$25K - $1M",
         description:
-          "Short-term capital to bridge a gap — between funding rounds, seasonal revenue dips, or while waiting on receivables.",
+          "Short-term capital to bridge a gap -- between funding rounds, seasonal revenue dips, or while waiting on receivables.",
         features: [
           "Fast turnaround for urgent needs",
           "Flexible repayment structures",
@@ -76,7 +77,7 @@ const categories: Category[] = [
     products: [
       {
         name: "Equipment Financing",
-        range: "$10K – $5M",
+        range: "$10K - $5M",
         description:
           "Acquire machinery, vehicles, technology, or any business-critical equipment with financing that uses the asset itself as collateral.",
         features: [
@@ -88,19 +89,19 @@ const categories: Category[] = [
       },
       {
         name: "Factoring",
-        range: "$10K – $5M",
+        range: "$10K - $5M",
         description:
           "Sell your outstanding invoices at a discount and receive cash immediately. Stop waiting 30, 60, or 90 days for customers to pay.",
         features: [
           "Advances up to 90% of invoice value",
-          "Funding within 24–48 hours",
+          "Funding within 24-48 hours",
           "Your customers pay the factor directly",
           "No long-term debt on your balance sheet",
         ],
       },
       {
         name: "AR Financing",
-        range: "$25K – $5M",
+        range: "$25K - $5M",
         description:
           "Borrow against your accounts receivable without selling them. Maintain your customer relationships while accessing cash.",
         features: [
@@ -120,9 +121,9 @@ const categories: Category[] = [
     products: [
       {
         name: "Commercial Mortgage",
-        range: "$100K – $5M+",
+        range: "$100K - $5M+",
         description:
-          "Long-term financing for purchasing, refinancing, or renovating commercial real estate — offices, retail, industrial, mixed-use.",
+          "Long-term financing for purchasing, refinancing, or renovating commercial real estate -- offices, retail, industrial, mixed-use.",
         features: [
           "Terms up to 25 years",
           "Competitive fixed and variable rates",
@@ -132,7 +133,7 @@ const categories: Category[] = [
       },
       {
         name: "Residential Mortgage",
-        range: "$100K – $3M",
+        range: "$100K - $3M",
         description:
           "Home purchase and refinance solutions for business owners. We understand self-employment income documentation.",
         features: [
@@ -144,7 +145,7 @@ const categories: Category[] = [
       },
       {
         name: "HELOC",
-        range: "$25K – $500K",
+        range: "$25K - $500K",
         description:
           "Tap into your home equity with a revolving line of credit. Use it for business investment, debt consolidation, or cash reserves.",
         features: [
@@ -164,7 +165,7 @@ const categories: Category[] = [
     products: [
       {
         name: "SBA Loans",
-        range: "$50K – $5M",
+        range: "$50K - $5M",
         description:
           "Government-backed loans with some of the best rates and longest terms available. We guide you through the SBA process from start to finish.",
         features: [
@@ -176,7 +177,7 @@ const categories: Category[] = [
       },
       {
         name: "0% Business Credit Cards",
-        range: "$5K – $150K",
+        range: "$5K - $150K",
         description:
           "Build business credit while accessing 0% introductory APR financing. Strategic credit card stacking for maximum leverage.",
         features: [
@@ -205,7 +206,7 @@ const categories: Category[] = [
 function CheckIcon() {
   return (
     <svg
-      className="w-4 h-4 text-teal shrink-0 mt-0.5"
+      className="w-4 h-4 text-accent shrink-0 mt-0.5"
       viewBox="0 0 16 16"
       fill="none"
       aria-hidden="true"
@@ -224,30 +225,47 @@ function CheckIcon() {
 export default function ServicesPage() {
   return (
     <>
-      {/* Page header */}
-      <section className="pt-28 sm:pt-36 pb-16 sm:pb-20 relative">
+      {/* Page header with hero image */}
+      <section className="pt-28 sm:pt-36 pb-16 sm:pb-20 relative overflow-hidden">
         <div
-          className="absolute inset-0 pointer-events-none"
+          className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(180deg, #FBF8F3 0%, #F5EFE5 70%, #EDE7DB 100%)",
+              "linear-gradient(135deg, #0F1B2D 0%, #0D3F8A 50%, #1B6FEE 100%)",
           }}
         />
+        <div className="absolute inset-0 opacity-10">
+          <Image
+            src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1600&q=80"
+            alt=""
+            fill
+            className="object-cover"
+            sizes="100vw"
+            priority
+          />
+        </div>
         <div className="relative max-w-6xl mx-auto px-5 sm:px-8">
           <div className="max-w-2xl">
-            <p className="text-sm font-semibold tracking-widest uppercase text-amber-dark mb-4">
+            <p className="text-sm font-semibold tracking-widest uppercase text-accent mb-4">
               Our Services
             </p>
-            <h1 className="text-4xl sm:text-5xl font-bold text-navy mb-5 tracking-tight leading-[1.12]">
+            <h1 className="text-4xl sm:text-5xl font-bold text-white mb-5 tracking-tight leading-[1.12]">
               Twelve products. One application.
             </h1>
-            <p className="text-lg text-ink-secondary leading-relaxed">
-              Whatever your business needs — growth capital, asset financing,
-              real estate, or credit building — we have a product that fits. One
+            <p className="text-lg text-white/70 leading-relaxed">
+              Whatever your business needs -- growth capital, asset financing,
+              real estate, or credit building -- we have a product that fits. One
               form, multiple options, and a team that knows the landscape.
             </p>
           </div>
         </div>
+        {/* Bottom fade */}
+        <div
+          className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none"
+          style={{
+            background: "linear-gradient(to top, var(--color-surface), transparent)",
+          }}
+        />
       </section>
 
       {/* Category sections */}
@@ -263,14 +281,14 @@ export default function ServicesPage() {
               className="absolute inset-0 pointer-events-none"
               style={{
                 background:
-                  "linear-gradient(180deg, rgba(27,43,58,0.02) 0%, rgba(27,43,58,0.04) 50%, rgba(27,43,58,0.02) 100%)",
+                  "linear-gradient(180deg, var(--color-surface-warm) 0%, var(--color-surface-deep) 50%, var(--color-surface-warm) 100%)",
               }}
             />
           )}
 
           <div className="relative max-w-6xl mx-auto px-5 sm:px-8">
             <div className="mb-12">
-              <h2 className="text-2xl sm:text-3xl font-bold text-navy mb-2 tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-bold text-ink mb-2 tracking-tight">
                 {category.title}
               </h2>
               <p className="text-ink-secondary text-base leading-relaxed max-w-xl">
@@ -282,13 +300,13 @@ export default function ServicesPage() {
               {category.products.map((product) => (
                 <div
                   key={product.name}
-                  className="rounded-2xl border border-rule-light p-6 sm:p-7 flex flex-col"
+                  className="rounded-2xl border border-rule-light bg-white p-6 sm:p-7 flex flex-col"
                 >
                   <div className="mb-4">
-                    <h3 className="text-lg font-bold text-navy mb-1">
+                    <h3 className="text-lg font-bold text-ink mb-1">
                       {product.name}
                     </h3>
-                    <p className="text-sm font-semibold text-amber-dark">
+                    <p className="text-sm font-semibold text-azure">
                       {product.range}
                     </p>
                   </div>
@@ -311,7 +329,7 @@ export default function ServicesPage() {
 
                   <Link
                     href="/apply"
-                    className="inline-flex items-center justify-center w-full px-5 py-2.5 text-sm font-semibold text-white bg-navy hover:opacity-85 rounded-lg transition-opacity duration-150 cursor-pointer"
+                    className="inline-flex items-center justify-center w-full px-5 py-2.5 text-sm font-semibold text-white bg-azure hover:opacity-85 rounded-lg transition-opacity duration-150 cursor-pointer"
                   >
                     Apply for {product.name}
                   </Link>
@@ -324,12 +342,12 @@ export default function ServicesPage() {
 
       {/* Bottom CTA */}
       <section className="py-20 sm:py-28 relative overflow-hidden">
-        <div className="absolute inset-0 bg-navy-deep" />
+        <div className="absolute inset-0 bg-navy" />
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "radial-gradient(ellipse 50% 60% at 70% 40%, rgba(212,137,26,0.06) 0%, transparent 60%)",
+              "radial-gradient(ellipse 50% 60% at 70% 40%, rgba(27,111,238,0.12) 0%, transparent 60%), radial-gradient(ellipse 40% 40% at 30% 60%, rgba(0,201,167,0.08) 0%, transparent 50%)",
           }}
         />
         <div className="relative max-w-3xl mx-auto px-5 sm:px-8 text-center">
@@ -343,7 +361,7 @@ export default function ServicesPage() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link
               href="/apply"
-              className="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white bg-amber hover:opacity-85 rounded-xl transition-opacity cursor-pointer"
+              className="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white bg-accent hover:opacity-85 rounded-xl transition-opacity cursor-pointer"
             >
               Start Your Application
             </Link>

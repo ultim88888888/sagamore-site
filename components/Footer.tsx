@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+import { LogoMark } from "@/components/Logo";
 
 const footerLinks = {
   Products: [
@@ -20,19 +20,13 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="bg-navy-deep text-white/80">
+    <footer className="bg-navy text-white/80">
       <div className="max-w-6xl mx-auto px-5 sm:px-8 py-16 sm:py-20">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-2">
             <Link href="/" className="inline-flex items-center gap-2.5 mb-4 cursor-pointer">
-              <Image
-                src="/shield.png"
-                alt="Sagamore Financial Group"
-                width={32}
-                height={33}
-                className="h-8 w-auto brightness-0 invert"
-              />
+              <LogoMark size={32} />
               <span className="text-white font-semibold text-base tracking-tight">
                 Sagamore Financial Group
               </span>

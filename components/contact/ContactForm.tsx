@@ -67,7 +67,7 @@ export function ContactForm() {
             />
           </svg>
         </div>
-        <h2 className="text-xl font-bold text-navy mb-2">Message sent</h2>
+        <h2 className="text-xl font-bold text-ink mb-2">Message sent</h2>
         <p className="text-ink-secondary text-sm">
           We will get back to you within one business day.
         </p>
@@ -80,7 +80,7 @@ export function ContactForm() {
       onSubmit={handleSubmit}
       className="bg-white rounded-2xl border border-rule-light p-6 sm:p-8"
     >
-      <h2 className="text-lg font-bold text-navy mb-6">Send us a message</h2>
+      <h2 className="text-lg font-bold text-ink mb-6">Send us a message</h2>
 
       <div className="space-y-5">
         <div>
@@ -94,7 +94,7 @@ export function ContactForm() {
             onChange={(e) => setName(e.target.value)}
             required
             placeholder="Your name"
-            className="w-full px-4 py-3 text-sm bg-white border border-rule-light rounded-lg text-ink placeholder:text-ink-faint focus:border-amber focus:ring-0 transition-colors"
+            className="w-full px-4 py-3 text-sm bg-white border border-rule-light rounded-lg text-ink placeholder:text-ink-faint focus:border-azure focus:ring-0 transition-colors"
           />
         </div>
 
@@ -109,7 +109,7 @@ export function ContactForm() {
             onChange={(e) => setEmail(e.target.value)}
             required
             placeholder="you@company.com"
-            className="w-full px-4 py-3 text-sm bg-white border border-rule-light rounded-lg text-ink placeholder:text-ink-faint focus:border-amber focus:ring-0 transition-colors"
+            className="w-full px-4 py-3 text-sm bg-white border border-rule-light rounded-lg text-ink placeholder:text-ink-faint focus:border-azure focus:ring-0 transition-colors"
           />
         </div>
 
@@ -123,7 +123,7 @@ export function ContactForm() {
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             placeholder="(555) 123-4567"
-            className="w-full px-4 py-3 text-sm bg-white border border-rule-light rounded-lg text-ink placeholder:text-ink-faint focus:border-amber focus:ring-0 transition-colors"
+            className="w-full px-4 py-3 text-sm bg-white border border-rule-light rounded-lg text-ink placeholder:text-ink-faint focus:border-azure focus:ring-0 transition-colors"
           />
         </div>
 
@@ -138,7 +138,7 @@ export function ContactForm() {
             required
             rows={5}
             placeholder="Tell us how we can help..."
-            className="w-full px-4 py-3 text-sm bg-white border border-rule-light rounded-lg text-ink placeholder:text-ink-faint focus:border-amber focus:ring-0 transition-colors resize-none"
+            className="w-full px-4 py-3 text-sm bg-white border border-rule-light rounded-lg text-ink placeholder:text-ink-faint focus:border-azure focus:ring-0 transition-colors resize-none"
           />
         </div>
       </div>
@@ -150,7 +150,7 @@ export function ContactForm() {
         disabled={!name || !email || !message || submitting}
         className={`mt-6 w-full inline-flex items-center justify-center px-7 py-3.5 text-sm font-semibold rounded-xl transition-all duration-150 cursor-pointer ${
           name && email && message && !submitting
-            ? "bg-amber text-white hover:opacity-85"
+            ? "bg-accent text-white hover:opacity-85"
             : "bg-rule-light text-ink-faint cursor-not-allowed"
         }`}
       >

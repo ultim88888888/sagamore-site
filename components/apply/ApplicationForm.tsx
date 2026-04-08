@@ -94,7 +94,7 @@ function InputField({
       <input
         {...props}
         required={required}
-        className="w-full px-4 py-2.5 rounded-lg border border-rule text-ink bg-white placeholder:text-ink-faint focus:border-amber focus:ring-1 focus:ring-amber/30 outline-none transition-colors text-sm"
+        className="w-full px-4 py-2.5 rounded-lg border border-rule text-ink bg-white placeholder:text-ink-faint focus:border-azure focus:ring-1 focus:ring-azure/30 outline-none transition-colors text-sm"
       />
     </div>
   );
@@ -119,9 +119,9 @@ function SelectField({
       <select
         {...props}
         required={required}
-        className="w-full px-4 py-2.5 rounded-lg border border-rule text-ink bg-white focus:border-amber focus:ring-1 focus:ring-amber/30 outline-none transition-colors text-sm cursor-pointer appearance-none"
+        className="w-full px-4 py-2.5 rounded-lg border border-rule text-ink bg-white focus:border-azure focus:ring-1 focus:ring-azure/30 outline-none transition-colors text-sm cursor-pointer appearance-none"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 5l3 3 3-3' stroke='%238a8078' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 5l3 3 3-3' stroke='%237a7f8e' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E")`,
           backgroundRepeat: "no-repeat",
           backgroundPosition: "right 12px center",
         }}
@@ -267,7 +267,7 @@ export function ApplicationForm() {
             />
           </svg>
         </div>
-        <h2 className="text-2xl font-bold text-navy mb-3">
+        <h2 className="text-2xl font-bold text-ink mb-3">
           Application Received
         </h2>
         <p className="text-ink-secondary leading-relaxed max-w-md mx-auto">
@@ -294,10 +294,10 @@ export function ApplicationForm() {
                   <div
                     className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-medium transition-colors ${
                       isComplete
-                        ? "bg-amber text-white"
+                        ? "bg-accent text-white"
                         : isActive
-                          ? "bg-amber/10 text-amber-dark border-2 border-amber"
-                          : "bg-cream text-ink-tertiary"
+                          ? "bg-azure-pale text-azure-dark border-2 border-azure"
+                          : "bg-surface text-ink-tertiary"
                     }`}
                   >
                     {isComplete ? (
@@ -326,7 +326,7 @@ export function ApplicationForm() {
                 {i < stepLabels.length - 1 && (
                   <div
                     className={`flex-1 h-px mx-3 ${
-                      isComplete ? "bg-amber" : "bg-rule-light"
+                      isComplete ? "bg-accent" : "bg-rule-light"
                     }`}
                   />
                 )}
@@ -342,7 +342,7 @@ export function ApplicationForm() {
           {/* Step 1 */}
           {step === 1 && (
             <div className="space-y-5">
-              <h3 className="text-lg font-bold text-navy mb-1">Business Information</h3>
+              <h3 className="text-lg font-bold text-ink mb-1">Business Information</h3>
               <p className="text-sm text-ink-secondary mb-4">
                 Tell us about the business seeking funding.
               </p>
@@ -392,7 +392,7 @@ export function ApplicationForm() {
           {/* Step 2 */}
           {step === 2 && (
             <div className="space-y-5">
-              <h3 className="text-lg font-bold text-navy mb-1">Business Details</h3>
+              <h3 className="text-lg font-bold text-ink mb-1">Business Details</h3>
               <p className="text-sm text-ink-secondary mb-4">
                 A few more details about your business structure.
               </p>
@@ -423,7 +423,7 @@ export function ApplicationForm() {
           {/* Step 3 */}
           {step === 3 && (
             <div className="space-y-5">
-              <h3 className="text-lg font-bold text-navy mb-1">Owner Information</h3>
+              <h3 className="text-lg font-bold text-ink mb-1">Owner Information</h3>
               <p className="text-sm text-ink-secondary mb-4">
                 Details about the primary business owner.
               </p>
@@ -525,7 +525,7 @@ export function ApplicationForm() {
           {/* Step 4 */}
           {step === 4 && (
             <div className="space-y-6">
-              <h3 className="text-lg font-bold text-navy mb-1">
+              <h3 className="text-lg font-bold text-ink mb-1">
                 Documents &amp; Certification
               </h3>
               <p className="text-sm text-ink-secondary mb-4">
@@ -554,7 +554,7 @@ export function ApplicationForm() {
                 </div>
               </div>
 
-              <div className="bg-cream rounded-xl p-5">
+              <div className="bg-surface-warm rounded-xl p-5">
                 <h4 className="text-sm font-bold text-ink mb-3">Application Summary</h4>
                 <div className="grid sm:grid-cols-2 gap-3 text-sm">
                   <div>
@@ -590,7 +590,7 @@ export function ApplicationForm() {
                   id="terms"
                   checked={data.termsAgreed}
                   onChange={(e) => update("termsAgreed", e.target.checked)}
-                  className="mt-1 cursor-pointer accent-amber"
+                  className="mt-1 cursor-pointer accent-azure"
                 />
                 <label htmlFor="terms" className="text-sm text-ink-secondary leading-relaxed cursor-pointer">
                   I certify that the information provided is true and accurate. I
@@ -628,6 +628,7 @@ export function ApplicationForm() {
             {step < 4 ? (
               <Button
                 type="button"
+                variant="secondary"
                 disabled={!canAdvance()}
                 onClick={() => setStep((step + 1) as Step)}
               >
