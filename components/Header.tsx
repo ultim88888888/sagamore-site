@@ -6,18 +6,7 @@ import { usePathname } from "next/navigation";
 import { LogoMark } from "@/components/Logo";
 import { categories } from "@/lib/products";
 
-/** Pages that open with a dark gradient hero behind the transparent header. */
-function hasDarkHero(pathname: string): boolean {
-  return (
-    pathname === "/" ||
-    pathname === "/about" ||
-    pathname === "/services" ||
-    pathname.startsWith("/services/")
-  );
-}
-
 export function Header() {
-  const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
@@ -25,17 +14,6 @@ export function Header() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const darkHero = hasDarkHero(pathname);
-  // Light nav text when over a dark hero and not scrolled
-  const lightNav = darkHero && !scrolled;
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   // Lock body scroll when mobile menu is open
   useEffect(() => {
@@ -83,32 +61,14 @@ export function Header() {
   const isServicesActive =
     pathname === "/services" || pathname.startsWith("/services/");
 
-  /* ── Color helpers based on scroll + hero context ── */
-
-  // Nav link color (inactive)
-  const navLinkClass = lightNav
-    ? "text-white/80 hover:text-white"
-    : "text-ink-secondary hover:text-ink";
-
-  // Nav link active color
-  const navActiveClass = lightNav ? "text-white" : "text-azure";
-
-  // Mobile hamburger color
-  const hamburgerClass = lightNav
-    ? "text-white/80 hover:text-white"
-    : "text-ink-secondary hover:text-ink";
-
-  // "Get Started" button — bg-azure works on both dark and light backgrounds
+  // Nav styling is now consistent across all pages — solid white bg, dark text.
+  const navLinkClass = "text-ink-secondary hover:text-ink";
+  const navActiveClass = "text-azure";
+  const hamburgerClass = "text-ink-secondary hover:text-ink";
   const ctaClass = "text-white bg-azure hover:opacity-85";
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-white/90 backdrop-blur-xl shadow-[0_1px_0_var(--color-rule-light)]"
-          : "bg-transparent"
-      }`}
-    >
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-xl shadow-[0_1px_0_var(--color-rule-light)]">
       <nav className="max-w-7xl mx-auto px-5 sm:px-8 h-16 sm:h-18 flex items-center justify-between">
         {/* Logo */}
         <Link
