@@ -318,14 +318,14 @@ export function ApplicationForm() {
     <div className="bg-white rounded-2xl shadow-sm border border-rule-light overflow-hidden">
       {/* Step Indicator */}
       <div className="px-6 sm:px-8 pt-6 sm:pt-8">
-        <div className="flex items-center justify-between mb-8">
+        <div className="flex items-center justify-center mb-8">
           {stepLabels.map((label, i) => {
             const stepNum = (i + 1) as Step;
             const isActive = step === stepNum;
             const isComplete = step > stepNum;
 
             return (
-              <div key={label} className="flex items-center flex-1">
+              <div key={label} className="flex items-center">
                 <div className="flex flex-col items-center">
                   <div
                     className={`w-9 h-9 rounded-full flex items-center justify-center text-sm font-medium transition-colors ${
@@ -361,7 +361,7 @@ export function ApplicationForm() {
                 </div>
                 {i < stepLabels.length - 1 && (
                   <div
-                    className={`flex-1 h-px mx-3 ${
+                    className={`w-12 sm:w-20 h-px mx-2 sm:mx-3 ${
                       isComplete ? "bg-accent" : "bg-rule-light"
                     }`}
                   />

@@ -18,20 +18,20 @@ const metrics = [
 export function TrustMetrics() {
   return (
     <section
-      className="py-5 overflow-hidden border-y border-rule-light/60 bg-white"
+      className="py-8 sm:py-10 overflow-hidden border-y border-rule-light/60 bg-white"
       aria-label="Key business metrics"
     >
       <div
-        className="flex gap-12 whitespace-nowrap"
+        className="flex gap-16 whitespace-nowrap"
         style={{ animation: "marquee 35s linear infinite" }}
       >
         {/* Duplicate for seamless loop */}
         {[...metrics, ...metrics].map((text, i) => (
           <span
             key={i}
-            className="text-sm font-medium text-ink-tertiary tracking-wide flex items-center gap-3 shrink-0"
+            className="text-base sm:text-lg font-semibold text-ink-secondary tracking-wide flex items-center gap-4 shrink-0"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
+            <span className="w-2 h-2 rounded-full bg-accent shrink-0" />
             {text}
           </span>
         ))}
