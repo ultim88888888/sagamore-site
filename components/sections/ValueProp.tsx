@@ -14,6 +14,7 @@ const props = [
       "You fill out one form. We shop it across our network of lenders and bring back the offers that actually fit your situation. No application fatigue.",
     image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&q=80",
     imageAlt: "Business team collaborating around a desk",
+    imagePosition: "center" as const,
   },
   {
     title: "Honest Guidance, Not Sales Pressure",
@@ -21,6 +22,7 @@ const props = [
       "We earn when you fund, but we only recommend products that make sense for your business. If the timing is not right, we will tell you.",
     image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&q=80",
     imageAlt: "Professional consultant in a meeting",
+    imagePosition: "center top" as const,
   },
   {
     title: "Speed Without Shortcuts",
@@ -28,6 +30,7 @@ const props = [
       "Most clients receive a decision within 24 hours. We move fast because we have the relationships and infrastructure — not because we skip due diligence.",
     image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80",
     imageAlt: "Dashboard showing business analytics and growth charts",
+    imagePosition: "center" as const,
   },
 ];
 
@@ -43,7 +46,7 @@ export function ValueProp() {
         }}
       />
 
-      <div className="relative max-w-6xl mx-auto px-5 sm:px-8">
+      <div className="relative max-w-7xl mx-auto px-5 sm:px-8">
         <div className="max-w-2xl mb-14">
           <p className="text-sm font-semibold tracking-widest uppercase text-azure mb-3">
             Why Sagamore
@@ -70,6 +73,7 @@ export function ValueProp() {
                   alt={prop.imageAlt}
                   fill
                   className="object-cover"
+                  style={{ objectPosition: prop.imagePosition }}
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
                 {/* Accent number overlay */}

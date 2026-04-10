@@ -148,7 +148,7 @@ export default async function ServicePage({
           }}
         />
 
-        <div className="relative max-w-6xl mx-auto px-5 sm:px-8">
+        <div className="relative max-w-7xl mx-auto px-5 sm:px-8">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-sm text-white/50 mb-8">
             <Link
@@ -203,7 +203,7 @@ export default async function ServicePage({
 
       {/* Overview + Features */}
       <section className="py-16 sm:py-24">
-        <div className="max-w-6xl mx-auto px-5 sm:px-8">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div className="grid lg:grid-cols-5 gap-12 lg:gap-16">
             {/* Left column — Long description */}
             <div className="lg:col-span-3">
@@ -298,7 +298,7 @@ export default async function ServicePage({
               "linear-gradient(180deg, var(--color-surface-warm) 0%, var(--color-surface-deep) 50%, var(--color-surface-warm) 100%)",
           }}
         />
-        <div className="relative max-w-6xl mx-auto px-5 sm:px-8">
+        <div className="relative max-w-7xl mx-auto px-5 sm:px-8">
           <div className="max-w-2xl mb-12">
             <p className="text-sm font-semibold tracking-widest uppercase text-azure mb-3">
               Why Choose This Product
@@ -329,7 +329,7 @@ export default async function ServicePage({
       {/* Sibling Navigation */}
       {(prevProduct || nextProduct) && (
         <section className="py-12 sm:py-16">
-          <div className="max-w-6xl mx-auto px-5 sm:px-8">
+          <div className="max-w-7xl mx-auto px-5 sm:px-8">
             <div className="border-t border-rule-light pt-10 sm:pt-14">
               <p className="text-sm font-semibold tracking-widest uppercase text-ink-tertiary mb-6">
                 More in {category?.title}

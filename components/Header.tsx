@@ -92,9 +92,6 @@ export function Header() {
   // Nav link active color
   const navActiveClass = lightNav ? "text-white" : "text-azure";
 
-  // Logo wordmark color
-  const logoTextClass = lightNav ? "text-white" : "text-ink";
-
   // Mobile hamburger color
   const hamburgerClass = lightNav
     ? "text-white/80 hover:text-white"
@@ -111,17 +108,14 @@ export function Header() {
           : "bg-transparent"
       }`}
     >
-      <nav className="max-w-6xl mx-auto px-5 sm:px-8 h-16 sm:h-18 flex items-center justify-between">
+      <nav className="max-w-7xl mx-auto px-5 sm:px-8 h-16 sm:h-18 flex items-center justify-between">
         {/* Logo */}
         <Link
           href="/"
-          className="flex items-center gap-2.5 cursor-pointer"
+          className="flex items-center cursor-pointer"
           onClick={closeMobile}
         >
           <LogoMark size={36} />
-          <span className={`font-semibold text-base tracking-tight hidden sm:block transition-colors duration-300 ${logoTextClass}`}>
-            Sagamore Financial
-          </span>
         </Link>
 
         {/* Desktop Nav */}

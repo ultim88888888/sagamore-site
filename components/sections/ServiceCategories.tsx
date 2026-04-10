@@ -33,7 +33,7 @@ const categoryIcons: Record<string, React.ReactNode> = {
 export function ServiceCategories() {
   return (
     <section className="py-20 sm:py-28">
-      <div className="max-w-6xl mx-auto px-5 sm:px-8">
+      <div className="max-w-7xl mx-auto px-5 sm:px-8">
         <div className="max-w-2xl mb-14">
           <p className="text-sm font-semibold tracking-widest uppercase text-azure mb-3">
             What We Offer

@@ -82,7 +82,7 @@ export function HeroSection() {
         }}
       />
 
-      <div className="relative max-w-6xl mx-auto px-5 sm:px-8 pt-28 sm:pt-32 pb-20 w-full">
+      <div className="relative max-w-7xl mx-auto px-5 sm:px-8 pt-28 sm:pt-32 pb-20 w-full">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
           {/* Left column — messaging */}
           <div className="max-w-xl">
