@@ -21,12 +21,20 @@ export function LogoMark({ size = 36, className = "" }: { size?: number; classNa
 
 /**
  * Full logo lockup — mark + wordmark.
+ * Pass `textClass` to control wordmark color in different contexts
+ * (e.g. "text-white" on dark hero pages). Defaults to dark text.
  */
-export function LogoFull({ className = "" }: { className?: string }) {
+export function LogoFull({
+  className = "",
+  textClass = "text-ink",
+}: {
+  className?: string;
+  textClass?: string;
+}) {
   return (
     <div className={`flex items-center gap-2.5 ${className}`}>
       <LogoMark size={36} />
-      <span className="font-semibold text-base tracking-tight hidden sm:block">
+      <span className={`font-semibold text-base tracking-tight hidden sm:block ${textClass}`}>
         Sagamore Financial
       </span>
     </div>
