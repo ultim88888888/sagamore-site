@@ -207,6 +207,7 @@ export function ApplicationForm() {
     if (!canAdvance()) return;
 
     setSubmitting(true);
+    setError(""); // clear any stale errors (e.g. from failed file upload)
 
     try {
       const formPayload = new FormData();
