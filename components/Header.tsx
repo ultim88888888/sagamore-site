@@ -10,6 +10,7 @@ import { categories } from "@/lib/products";
 function hasDarkHero(pathname: string): boolean {
   return (
     pathname === "/" ||
+    pathname === "/about" ||
     pathname === "/services" ||
     pathname.startsWith("/services/")
   );
@@ -120,6 +121,15 @@ export function Header() {
 
         {/* Desktop Nav */}
         <div className="hidden md:flex items-center gap-8">
+          <Link
+            href="/about"
+            className={`text-sm font-medium tracking-wide transition-colors duration-150 cursor-pointer ${
+              pathname === "/about" ? navActiveClass : navLinkClass
+            }`}
+          >
+            About
+          </Link>
+
           {/* Services dropdown */}
           <div
             className="relative"
@@ -273,6 +283,16 @@ export function Header() {
       {mobileOpen && (
         <div className="md:hidden fixed inset-0 top-16 bg-white z-40 overflow-y-auto">
           <div className="px-5 py-8 space-y-1">
+            <Link
+              href="/about"
+              onClick={closeMobile}
+              className={`block text-lg font-medium py-2 cursor-pointer ${
+                pathname === "/about" ? "text-azure" : "text-ink-secondary"
+              }`}
+            >
+              About
+            </Link>
+
             {/* Services with expandable sub-nav */}
             <div>
               <button

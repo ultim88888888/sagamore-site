@@ -11,6 +11,7 @@ const footerLinks = {
     { label: "All Services", href: "/services" },
   ],
   Company: [
+    { label: "About", href: "/about" },
     { label: "Apply Now", href: "/apply" },
     { label: "Contact", href: "/contact" },
     { label: "Privacy Policy", href: "/privacy" },
