@@ -61,7 +61,7 @@ export function Process() {
         }}
       />
 
-      <div className="relative max-w-6xl mx-auto px-5 sm:px-8">
+      <div className="relative max-w-7xl mx-auto px-5 sm:px-8">
         <div className="grid lg:grid-cols-5 gap-12 lg:gap-16">
           {/* Left — intro */}
           <div className="lg:col-span-2">

@@ -69,7 +69,7 @@ export default function ServicesPage() {
             priority
           />
         </div>
-        <div className="relative max-w-6xl mx-auto px-5 sm:px-8">
+        <div className="relative max-w-7xl mx-auto px-5 sm:px-8">
           <div className="max-w-2xl">
             <p className="text-sm font-semibold tracking-widest uppercase text-accent mb-4">
               Our Services
@@ -112,7 +112,7 @@ export default function ServicesPage() {
             />
           )}
 
-          <div className="relative max-w-6xl mx-auto px-5 sm:px-8">
+          <div className="relative max-w-7xl mx-auto px-5 sm:px-8">
             <div className="mb-12">
               <h2 className="text-2xl sm:text-3xl font-bold text-ink mb-2 tracking-tight">
                 {category.title}
