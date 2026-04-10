@@ -51,15 +51,28 @@ export function ServiceCategories() {
           {categories.map((cat) => (
             <div
               key={cat.title}
-              className="rounded-2xl p-7 sm:p-8 border border-rule-light bg-white"
+              className="group rounded-2xl p-7 sm:p-8 border border-rule-light bg-white hover:border-azure/30 hover:shadow-sm transition-all duration-200"
             >
               <div className="flex items-start gap-4 mb-3">
-                <div className="text-azure shrink-0 mt-0.5">
+                <Link
+                  href={`/services#${cat.id}`}
+                  className="text-azure shrink-0 mt-0.5 group-hover:text-azure-dark transition-colors duration-200"
+                  tabIndex={-1}
+                  aria-hidden="true"
+                >
                   {categoryIcons[cat.id]}
-                </div>
+                </Link>
                 <div>
                   <h3 className="text-lg font-bold text-ink mb-2">
-                    {cat.title}
+                    <Link
+                      href={`/services#${cat.id}`}
+                      className="hover:text-azure transition-colors duration-200"
+                    >
+                      {cat.title}
+                      <span className="inline-block ml-1.5 opacity-0 -translate-x-1 group-hover:opacity-60 group-hover:translate-x-0 transition-all duration-200 text-azure">
+                        &rarr;
+                      </span>
+                    </Link>
                   </h3>
                   <p className="text-sm text-ink-secondary leading-relaxed mb-4">
                     {cat.subtitle}
@@ -69,7 +82,7 @@ export function ServiceCategories() {
                       <Link
                         key={p.slug}
                         href={`/services/${p.slug}`}
-                        className="inline-block text-xs text-ink-tertiary hover:text-azure bg-azure-pale/60 hover:bg-azure-pale px-2.5 py-1 rounded-md transition-colors cursor-pointer"
+                        className="relative z-10 inline-block text-xs text-ink-tertiary hover:text-azure bg-azure-pale/60 hover:bg-azure-pale px-2.5 py-1 rounded-md transition-colors cursor-pointer"
                       >
                         {p.name}
                       </Link>
