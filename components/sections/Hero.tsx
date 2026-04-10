@@ -5,13 +5,20 @@ import Link from "next/link";
 import Image from "next/image";
 
 const creditOptions = [
-  { label: "Excellent", sublabel: "720+", multiplier: 8 },
-  { label: "Good", sublabel: "680-719", multiplier: 6 },
-  { label: "Fair", sublabel: "600-679", multiplier: 4 },
-  { label: "Below 600", sublabel: "<600", multiplier: 2 },
+  { label: "600+", sublabel: "Good\u2013Excellent" },
+  { label: "Below 600", sublabel: "Rebuilding" },
 ];
 
-const FLOOR = 5_000;
+/** Multiplier derived from revenue tier; overridden to 1.25x for sub-600 credit */
+function getMultiplier(revenue: number, belowSixHundred: boolean): number {
+  if (belowSixHundred) return 1.25;
+  if (revenue <= 200_000) return 1.5;
+  if (revenue <= 500_000) return 2.3;
+  if (revenue <= 1_000_000) return 2.5;
+  return 2.7;
+}
+
+const FLOOR = 15_000;
 const CAP = 5_000_000;
 
 function formatCurrency(n: number): string {
@@ -26,11 +33,12 @@ function formatCurrency(n: number): string {
 }
 
 export function HeroSection() {
-  const [creditIndex, setCreditIndex] = useState(1);
+  const [creditIndex, setCreditIndex] = useState(0);
   const [revenue, setRevenue] = useState(50_000);
 
   const estimated = useMemo(() => {
-    const raw = revenue * creditOptions[creditIndex].multiplier;
+    const belowSixHundred = creditIndex === 1;
+    const raw = revenue * getMultiplier(revenue, belowSixHundred);
     return Math.min(CAP, Math.max(FLOOR, raw));
   }, [creditIndex, revenue]);
 
@@ -184,8 +192,8 @@ export function HeroSection() {
                 </div>
                 <input
                   type="range"
-                  min={5000}
-                  max={2000000}
+                  min={15000}
+                  max={3000000}
                   step={5000}
                   value={revenue}
                   onChange={(e) => setRevenue(Number(e.target.value))}
@@ -193,8 +201,8 @@ export function HeroSection() {
                   aria-label="Monthly revenue slider"
                 />
                 <div className="flex justify-between text-xs text-ink-faint mt-1.5">
-                  <span>$5K</span>
-                  <span>$2M+</span>
+                  <span>$15K</span>
+                  <span>$3M</span>
                 </div>
               </div>
 

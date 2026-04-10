@@ -70,6 +70,8 @@ const entityTypes = [
   "Other",
 ];
 
+// Intentionally more granular than the hero calculator's binary "600+" / "Below 600" —
+// the calculator is a quick estimate, the application collects data for underwriting.
 const creditRanges = [
   "Excellent (720+)",
   "Good (680-719)",
@@ -147,6 +149,7 @@ export function ApplicationForm() {
   const [bankStatement, setBankStatement] = useState<File | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submitUncertain, setSubmitUncertain] = useState(false);
   const [error, setError] = useState("");
 
   const update = (field: keyof FormData, value: string | boolean) => {
@@ -204,7 +207,7 @@ export function ApplicationForm() {
     if (!canAdvance()) return;
 
     setSubmitting(true);
-    setError("");
+    setError(""); // clear any stale errors (e.g. from failed file upload)
 
     try {
       const formPayload = new FormData();
@@ -236,20 +239,19 @@ export function ApplicationForm() {
         formPayload.append("q22_bankStatement", bankStatement);
       }
 
-      const response = await fetch(JOTFORM_URL, {
+      await fetch(JOTFORM_URL, {
         method: "POST",
         body: formPayload,
+        mode: "no-cors",
       });
 
-      if (response.ok || response.status === 301 || response.status === 302) {
-        setSubmitted(true);
-      } else {
-        setError(
-          "There was a problem submitting your application. Please try again or contact us directly."
-        );
-      }
+      // no-cors gives an opaque response (status 0) — can't read it,
+      // but the data was sent successfully. Treat as success.
+      setSubmitted(true);
     } catch {
-      // JotForm redirects on submit — this is expected behavior
+      // no-cors fetch resolves on success (opaque response), so a thrown error
+      // means a genuine network failure — the request may not have reached JotForm.
+      setSubmitUncertain(true);
       setSubmitted(true);
     } finally {
       setSubmitting(false);
@@ -259,25 +261,55 @@ export function ApplicationForm() {
   if (submitted) {
     return (
       <div className="bg-white rounded-2xl p-8 sm:p-12 shadow-sm border border-rule-light text-center">
-        <div className="w-16 h-16 rounded-full bg-success/10 flex items-center justify-center mx-auto mb-6">
-          <svg viewBox="0 0 24 24" className="w-8 h-8 text-success">
-            <path
-              d="M20 6L9 17l-5-5"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              fill="none"
-            />
-          </svg>
-        </div>
-        <h2 className="text-2xl font-bold text-ink mb-3">
-          Application Received
-        </h2>
-        <p className="text-ink-secondary leading-relaxed max-w-md mx-auto">
-          Thank you for applying with Sagamore Financial Group. Our team will
-          review your application and reach out within one business day.
-        </p>
+        {submitUncertain ? (
+          <>
+            <div className="w-16 h-16 rounded-full bg-amber-50 flex items-center justify-center mx-auto mb-6">
+              <svg viewBox="0 0 24 24" className="w-8 h-8 text-amber-500">
+                <path
+                  d="M12 9v4m0 4h.01M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Z"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  fill="none"
+                />
+              </svg>
+            </div>
+            <h2 className="text-2xl font-bold text-ink mb-3">
+              Submission May Not Have Gone Through
+            </h2>
+            <p className="text-ink-secondary leading-relaxed max-w-md mx-auto">
+              We encountered a connection issue and your application may not have
+              been received. Please contact us at{" "}
+              <a href="tel:+15164802825" className="text-azure hover:underline">
+                (516) 480-2825
+              </a>{" "}
+              to confirm your submission or apply by phone.
+            </p>
+          </>
+        ) : (
+          <>
+            <div className="w-16 h-16 rounded-full bg-success/10 flex items-center justify-center mx-auto mb-6">
+              <svg viewBox="0 0 24 24" className="w-8 h-8 text-success">
+                <path
+                  d="M20 6L9 17l-5-5"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  fill="none"
+                />
+              </svg>
+            </div>
+            <h2 className="text-2xl font-bold text-ink mb-3">
+              Application Received
+            </h2>
+            <p className="text-ink-secondary leading-relaxed max-w-md mx-auto">
+              Thank you for applying with Sagamore Financial Group. Our team will
+              review your application and reach out within one business day.
+            </p>
+          </>
+        )}
       </div>
     );
   }
