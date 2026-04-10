@@ -6,6 +6,15 @@ import { usePathname } from "next/navigation";
 import { LogoMark } from "@/components/Logo";
 import { categories } from "@/lib/products";
 
+/** Pages that open with a dark gradient hero behind the transparent header. */
+function hasDarkHero(pathname: string): boolean {
+  return (
+    pathname === "/" ||
+    pathname === "/services" ||
+    pathname.startsWith("/services/")
+  );
+}
+
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -15,6 +24,10 @@ export function Header() {
   const dropdownRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const darkHero = hasDarkHero(pathname);
+  // Light nav text when over a dark hero and not scrolled
+  const lightNav = darkHero && !scrolled;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -69,6 +82,27 @@ export function Header() {
   const isServicesActive =
     pathname === "/services" || pathname.startsWith("/services/");
 
+  /* ── Color helpers based on scroll + hero context ── */
+
+  // Nav link color (inactive)
+  const navLinkClass = lightNav
+    ? "text-white/80 hover:text-white"
+    : "text-ink-secondary hover:text-ink";
+
+  // Nav link active color
+  const navActiveClass = lightNav ? "text-white" : "text-azure";
+
+  // Logo wordmark color
+  const logoTextClass = lightNav ? "text-white" : "text-ink";
+
+  // Mobile hamburger color
+  const hamburgerClass = lightNav
+    ? "text-white/80 hover:text-white"
+    : "text-ink-secondary hover:text-ink";
+
+  // "Get Started" button — bg-azure works on both dark and light backgrounds
+  const ctaClass = "text-white bg-azure hover:opacity-85";
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -85,7 +119,7 @@ export function Header() {
           onClick={closeMobile}
         >
           <LogoMark size={36} />
-          <span className="text-ink font-semibold text-base tracking-tight hidden sm:block">
+          <span className={`font-semibold text-base tracking-tight hidden sm:block transition-colors duration-300 ${logoTextClass}`}>
             Sagamore Financial
           </span>
         </Link>
@@ -103,9 +137,7 @@ export function Header() {
               type="button"
               onClick={() => setServicesOpen(!servicesOpen)}
               className={`flex items-center gap-1 text-sm font-medium tracking-wide transition-colors duration-150 cursor-pointer ${
-                isServicesActive
-                  ? "text-azure"
-                  : "text-ink-secondary hover:text-ink"
+                isServicesActive ? navActiveClass : navLinkClass
               }`}
               aria-expanded={servicesOpen}
               aria-haspopup="true"
@@ -129,7 +161,7 @@ export function Header() {
               </svg>
             </button>
 
-            {/* Dropdown panel */}
+            {/* Dropdown panel — always dark text on white bg */}
             {servicesOpen && (
               <div
                 ref={dropdownRef}
@@ -187,9 +219,7 @@ export function Header() {
           <Link
             href="/apply"
             className={`text-sm font-medium tracking-wide transition-colors duration-150 cursor-pointer ${
-              pathname === "/apply"
-                ? "text-azure"
-                : "text-ink-secondary hover:text-ink"
+              pathname === "/apply" ? navActiveClass : navLinkClass
             }`}
           >
             Apply
@@ -198,9 +228,7 @@ export function Header() {
           <Link
             href="/contact"
             className={`text-sm font-medium tracking-wide transition-colors duration-150 cursor-pointer ${
-              pathname === "/contact"
-                ? "text-azure"
-                : "text-ink-secondary hover:text-ink"
+              pathname === "/contact" ? navActiveClass : navLinkClass
             }`}
           >
             Contact
@@ -208,7 +236,7 @@ export function Header() {
 
           <Link
             href="/apply"
-            className="inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold text-white bg-azure hover:opacity-85 rounded-lg transition-opacity duration-150 cursor-pointer"
+            className={`inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold rounded-lg transition-all duration-150 cursor-pointer ${ctaClass}`}
           >
             Get Started
           </Link>
@@ -218,7 +246,7 @@ export function Header() {
         <button
           type="button"
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden p-2 text-ink-secondary hover:text-ink transition-colors cursor-pointer"
+          className={`md:hidden p-2 transition-colors cursor-pointer ${hamburgerClass}`}
           aria-label={mobileOpen ? "Close menu" : "Open menu"}
           aria-expanded={mobileOpen}
         >
@@ -247,7 +275,7 @@ export function Header() {
         </button>
       </nav>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu — always white bg with dark text */}
       {mobileOpen && (
         <div className="md:hidden fixed inset-0 top-16 bg-white z-40 overflow-y-auto">
           <div className="px-5 py-8 space-y-1">

@@ -1,15 +1,29 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-  <!-- Sagamore mark: upward momentum peak with three ascending bars -->
-  <defs>
-    <linearGradient id="sg" x1="0" y1="1" x2="0" y2="0">
-      <stop offset="0%" stop-color="#1458C2"/>
-      <stop offset="100%" stop-color="#1B6FEE"/>
-    </linearGradient>
-  </defs>
-  <!-- Rounded square base -->
-  <rect width="32" height="32" rx="7" fill="url(#sg)"/>
-  <!-- Three ascending bars — growth/momentum -->
-  <rect x="6" y="18" width="5" height="8" rx="1.5" fill="#00C9A7"/>
-  <rect x="13.5" y="13" width="5" height="13" rx="1.5" fill="#ffffff" opacity="0.95"/>
-  <rect x="21" y="7" width="5" height="19" rx="1.5" fill="#00C9A7"/>
+  <!-- Sagamore shield mark — favicon -->
+  <!-- Shield outer -->
+  <path
+    d="M16 4L5 8.5v8.5c0 7 4.7 12.5 11 14 6.3-1.5 11-7 11-14V8.5L16 4z"
+    fill="#1B6FEE"
+  />
+  <!-- White border band -->
+  <path
+    d="M16 6.2L7 10v7c0 5.8 3.8 10.5 9 12 5.2-1.5 9-6.2 9-12v-7L16 6.2z"
+    fill="white"
+  />
+  <!-- Inner shield fill -->
+  <path
+    d="M16 8L8.8 11.2v5.8c0 4.8 3.1 8.8 7.2 10 4.1-1.2 7.2-5.2 7.2-10v-5.8L16 8z"
+    fill="#1B6FEE"
+  />
+  <!-- S letterform -->
+  <path
+    d="M18.2 14.8c0-1.6-1.1-2.5-2.3-2.5-1.3 0-2.2.8-2.2 1.8 0 .9.6 1.4 1.8 1.8l.8.3c1.8.5 2.7 1.4 2.7 3 0 2-1.5 3.1-3.4 3.1-2 0-3.4-1.2-3.5-2.9h1.7c.1 1 .8 1.5 1.8 1.5 1.1 0 1.8-.7 1.8-1.6 0-.8-.6-1.3-1.8-1.7l-.8-.3c-1.6-.5-2.5-1.3-2.5-2.8 0-1.8 1.4-2.9 3.2-2.9 1.8 0 3 1.1 3.1 2.7h-1.7z"
+    fill="white"
+    stroke="white"
+    stroke-width="0.3"
+  />
+  <!-- Three stars (simple dots at this scale) -->
+  <circle cx="11" cy="3" r="1" fill="white"/>
+  <circle cx="16" cy="1.8" r="1" fill="white"/>
+  <circle cx="21" cy="3" r="1" fill="white"/>
 </svg>
