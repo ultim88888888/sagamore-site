@@ -251,7 +251,7 @@ export default function AboutPage() {
               "linear-gradient(135deg, var(--color-azure-deep) 0%, var(--color-azure) 50%, var(--color-azure-light) 100%)",
           }}
         />
-        <div className="absolute inset-0 opacity-8">
+        <div className="absolute inset-0 opacity-[8%]">
           <Image
             src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80"
             alt=""
