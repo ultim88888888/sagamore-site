@@ -631,7 +631,7 @@ export function ApplicationForm() {
                 <label htmlFor="terms" className="text-sm text-ink-secondary leading-relaxed cursor-pointer">
                   I certify that the information provided is true and accurate. I
                   authorize Sagamore Financial Group and its lending partners to verify
-                  this information and perform a soft credit inquiry.
+                  this information.
                 </label>
               </div>
 

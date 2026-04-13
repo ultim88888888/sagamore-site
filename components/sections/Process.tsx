@@ -7,7 +7,7 @@ const steps = [
     number: "01",
     title: "Tell us about your business",
     description:
-      "One short application, about five minutes. No hard credit pull at this stage.",
+      "One short application, about five minutes.",
   },
   {
     number: "02",

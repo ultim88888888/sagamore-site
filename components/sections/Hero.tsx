@@ -145,7 +145,7 @@ export function HeroSection() {
                 What could you qualify for?
               </h2>
               <p className="text-sm text-ink-tertiary mb-6">
-                Instant estimate &mdash; no credit pull required.
+                Instant estimate &mdash; see what you could qualify for.
               </p>
 
               {/* Credit Quality */}
