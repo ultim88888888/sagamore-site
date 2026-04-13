@@ -4,7 +4,7 @@ import { ApplicationForm } from "@/components/apply/ApplicationForm";
 export const metadata: Metadata = {
   title: "Apply for Funding",
   description:
-    "Apply for business funding through Sagamore Financial Group. One application, multiple lending options. No hard credit pull until you accept an offer.",
+    "Apply for business funding through Sagamore Financial Group. One application, multiple lending options.",
 };
 
 export default function ApplyPage() {
@@ -28,7 +28,6 @@ export default function ApplyPage() {
             </h1>
             <p className="text-ink-secondary leading-relaxed">
               One application, multiple lending options. Takes about five minutes.
-              No hard credit pull until you accept an offer.
             </p>
           </div>
           <ApplicationForm />
