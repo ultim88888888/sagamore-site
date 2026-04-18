@@ -179,6 +179,10 @@ export function ApplicationForm() {
         setError("Please upload a PDF file.");
         return;
       }
+      if (file.size > 10 * 1024 * 1024) {
+        setError("File size exceeds 10MB limit.");
+        return;
+      }
       setBankStatement(file);
       setError("");
     }
@@ -250,33 +254,41 @@ export function ApplicationForm() {
     setError("");
 
     try {
+      // Send as FormData so the server can forward the file to JotForm
+      const body = new FormData();
+
+      // Text fields
+      body.append("businessName", data.businessName);
+      body.append("dba", data.dba);
+      body.append("businessAddress", data.businessAddress);
+      body.append("businessCity", data.businessCity);
+      body.append("businessState", data.businessState);
+      body.append("businessZip", data.businessZip);
+      body.append("ein", data.ein);
+      body.append("entityType", data.entityType);
+      body.append("startDate", data.startDate);
+      body.append("firstName", data.firstName);
+      body.append("lastName", data.lastName);
+      body.append("email", data.email);
+      body.append("phone", data.phone);
+      body.append("homeAddress", data.homeAddress);
+      body.append("homeCity", data.homeCity);
+      body.append("homeState", data.homeState);
+      body.append("homeZip", data.homeZip);
+      body.append("dob", data.dob);
+      body.append("ssn", data.ssn);
+      body.append("ownership", data.ownership);
+      body.append("creditScore", data.creditScore);
+      body.append("signatureDate", data.signatureDate);
+
+      // File — only if one was selected
+      if (bankStatement) {
+        body.append("bankStatement", bankStatement);
+      }
+
       const response = await fetch(API_ENDPOINT, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          businessName: data.businessName,
-          dba: data.dba,
-          businessAddress: data.businessAddress,
-          businessCity: data.businessCity,
-          businessState: data.businessState,
-          businessZip: data.businessZip,
-          ein: data.ein,
-          entityType: data.entityType,
-          startDate: data.startDate,
-          firstName: data.firstName,
-          lastName: data.lastName,
-          email: data.email,
-          phone: data.phone,
-          homeAddress: data.homeAddress,
-          homeCity: data.homeCity,
-          homeState: data.homeState,
-          homeZip: data.homeZip,
-          dob: data.dob,
-          ssn: data.ssn,
-          ownership: data.ownership,
-          creditScore: data.creditScore,
-          signatureDate: data.signatureDate,
-        }),
+        body,
       });
 
       const result = await response.json();
