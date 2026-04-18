@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent, type ChangeEvent } from "react";
 import { Button } from "@/components/ui/Button";
+import { formatEIN, formatSSN, applicationSchema } from "@/lib/validation";
 
 const API_ENDPOINT = "/api/apply";
 
@@ -81,10 +82,12 @@ const creditRanges = [
 function InputField({
   label,
   required = false,
+  error,
   ...props
 }: {
   label: string;
   required?: boolean;
+  error?: string;
 } & React.InputHTMLAttributes<HTMLInputElement>) {
   const id = props.id ?? `apply-${label.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
   return (
@@ -97,8 +100,13 @@ function InputField({
         {...props}
         id={id}
         required={required}
-        className="w-full px-4 py-2.5 rounded-lg border border-rule text-ink bg-white placeholder:text-ink-faint focus:border-azure focus:ring-1 focus:ring-azure/30 outline-none transition-colors text-sm"
+        className={`w-full px-4 py-2.5 rounded-lg border text-ink bg-white placeholder:text-ink-faint focus:ring-1 outline-none transition-colors text-sm ${
+          error
+            ? "border-error focus:border-error focus:ring-error/30"
+            : "border-rule focus:border-azure focus:ring-azure/30"
+        }`}
       />
+      {error && <p className="text-error text-xs mt-1">{error}</p>}
     </div>
   );
 }
@@ -150,9 +158,18 @@ export function ApplicationForm() {
   const [submitted, setSubmitted] = useState(false);
   const [submissionId, setSubmissionId] = useState<string | null>(null);
   const [error, setError] = useState("");
+  const [fieldErrors, setFieldErrors] = useState<Partial<Record<keyof FormData, string>>>({});
 
   const update = (field: keyof FormData, value: string | boolean) => {
     setData((prev) => ({ ...prev, [field]: value }));
+    // Clear inline error for this field when the user edits it
+    if (fieldErrors[field]) {
+      setFieldErrors((prev) => {
+        const next = { ...prev };
+        delete next[field];
+        return next;
+      });
+    }
   };
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -205,6 +222,30 @@ export function ApplicationForm() {
     e.preventDefault();
     if (!canAdvance()) return;
 
+    // Client-side Zod validation
+    const result = applicationSchema.safeParse(data);
+    if (!result.success) {
+      const errors: Partial<Record<keyof FormData, string>> = {};
+      for (const issue of result.error.issues) {
+        const field = issue.path[0] as keyof FormData;
+        if (!errors[field]) {
+          errors[field] = issue.message;
+        }
+      }
+      setFieldErrors(errors);
+
+      // Navigate to the step containing the first error
+      const errorFields = Object.keys(errors) as (keyof FormData)[];
+      const step1Fields: (keyof FormData)[] = ["businessName", "dba", "businessAddress", "businessCity", "businessState", "businessZip"];
+      const step2Fields: (keyof FormData)[] = ["ein", "entityType", "startDate"];
+      const step3Fields: (keyof FormData)[] = ["firstName", "lastName", "email", "phone", "homeAddress", "homeCity", "homeState", "homeZip", "dob", "ssn", "ownership", "creditScore"];
+      if (errorFields.some((f) => step1Fields.includes(f))) setStep(1);
+      else if (errorFields.some((f) => step2Fields.includes(f))) setStep(2);
+      else if (errorFields.some((f) => step3Fields.includes(f))) setStep(3);
+      return;
+    }
+
+    setFieldErrors({});
     setSubmitting(true);
     setError("");
 
@@ -411,8 +452,10 @@ export function ApplicationForm() {
                 label="EIN (Employer Identification Number)"
                 required
                 value={data.ein}
-                onChange={(e) => update("ein", e.target.value)}
-                placeholder="XX-XXXXXXX"
+                onChange={(e) => update("ein", formatEIN(e.target.value))}
+                placeholder="12-3456789"
+                maxLength={10}
+                error={fieldErrors.ein}
               />
               <SelectField
                 label="Entity Type"
@@ -506,10 +549,12 @@ export function ApplicationForm() {
                   label="SSN"
                   required
                   value={data.ssn}
-                  onChange={(e) => update("ssn", e.target.value)}
-                  placeholder="XXX-XX-XXXX"
+                  onChange={(e) => update("ssn", formatSSN(e.target.value))}
+                  placeholder="123-45-6789"
+                  maxLength={11}
                   type="password"
                   autoComplete="off"
+                  error={fieldErrors.ssn}
                 />
               </div>
               <div className="grid sm:grid-cols-2 gap-4">

@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { einSchema, ssnSchema, stripFormatting } from "@/lib/validation";
 
 const JOTFORM_FORM_ID = "260337202144041";
 const JOTFORM_API_URL = `https://api.jotform.com/form/${JOTFORM_FORM_ID}/submissions`;
@@ -169,6 +170,27 @@ export async function POST(request: NextRequest) {
       { status: 400 }
     );
   }
+
+  // Validate EIN and SSN format — never trust the client
+  const einResult = einSchema.safeParse(payload.ein);
+  if (!einResult.success) {
+    return NextResponse.json(
+      { error: "Invalid EIN format. Expected XX-XXXXXXX." },
+      { status: 400 }
+    );
+  }
+
+  const ssnResult = ssnSchema.safeParse(payload.ssn);
+  if (!ssnResult.success) {
+    return NextResponse.json(
+      { error: "Invalid SSN format. Expected XXX-XX-XXXX." },
+      { status: 400 }
+    );
+  }
+
+  // Strip formatting for JotForm — send raw digits
+  payload.ein = stripFormatting(payload.ein);
+  payload.ssn = stripFormatting(payload.ssn);
 
   let submissionData: Record<string, string>;
   try {
