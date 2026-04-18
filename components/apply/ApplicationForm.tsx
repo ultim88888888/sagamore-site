@@ -620,6 +620,61 @@ export function ApplicationForm() {
                 </div>
               </div>
 
+              <div className="border border-rule rounded-lg bg-surface max-h-48 overflow-y-auto p-4 text-xs text-ink-secondary leading-relaxed">
+                <p className="mb-3">
+                  By signing below, each of the above listed business and business
+                  owners (individually and collectively, &quot;Applicant&quot;) certify
+                  that all information provided in the application is true and accurate.
+                  Applicant shall immediately notify Bayview Holdings Group Inc d/b/a
+                  Sagamore Financial Group of any change in such information. Applicant
+                  authorizes Sagamore Financial Group to share this application and such
+                  other information as obtained hereunder with each of its
+                  representatives, successors, assigns, designees and third-party funding
+                  partners, which includes lenders and other finance providers with whom
+                  Sagamore Financial Group has, or may in the future enter into,
+                  commercial-brokerage-financing relationships (collectively,
+                  &quot;Recipients&quot;). Further, Applicant authorizes Recipients: (i)
+                  to request and receive any consumer, business and/or investigative
+                  reports about or of Applicant, from one or more consumer reporting
+                  agencies, including but not limited to TransUnion, Experian, and
+                  Equifax; (ii) to request and receive such other information from
+                  third-parties in connection with underwriting Applicant including but
+                  not limited to credit card processor statements and bank statements;
+                  and (iii) to transmit this form, along with any of the foregoing
+                  information obtained in connection with this application, to any
+                  Recipient and/or third party as provided by law.
+                </p>
+                <p className="font-bold text-ink mb-2">Communications policy</p>
+                <p className="mb-3">
+                  By submitting an application for business funding, you acknowledge and
+                  agree that we may use your contact information, including your email
+                  address and mobile phone number, to contact you regarding the funding
+                  application process and for marketing communications, unless you
+                  explicitly opt-out by providing us with your consent not to receive
+                  such communications.
+                </p>
+                <p className="mb-3">
+                  We take data privacy seriously and will comply with all relevant data
+                  protection laws and regulations, including the General Data Protection
+                  Regulation (GDPR) and the CAN-SPAM Act. If you do not wish to receive
+                  marketing communications from us, you can opt-out at any time by
+                  providing us with your explicit consent not to receive such
+                  communications.
+                </p>
+                <p className="mb-3">
+                  If you do opt-in to receive marketing communications from us, we will
+                  ensure that our communications include a clear and easy-to-use
+                  unsubscribe option, should you wish to stop receiving them at any time.
+                </p>
+                <p>
+                  Please be aware that providing us with your contact information,
+                  including your email address and mobile phone number, may result in us
+                  using this information to contact you in relation to the business
+                  funding application, regardless of whether you have opted-in or
+                  opted-out of receiving marketing communications.
+                </p>
+              </div>
+
               <div className="flex items-start gap-3">
                 <input
                   type="checkbox"
@@ -629,9 +684,7 @@ export function ApplicationForm() {
                   className="mt-1 cursor-pointer accent-azure"
                 />
                 <label htmlFor="terms" className="text-sm text-ink-secondary leading-relaxed cursor-pointer">
-                  I certify that the information provided is true and accurate. I
-                  authorize Sagamore Financial Group and its lending partners to verify
-                  this information and perform a soft credit inquiry.
+                  I have read and agree to the terms and conditions above.
                 </label>
               </div>
 
