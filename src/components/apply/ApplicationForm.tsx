@@ -210,34 +210,67 @@ export function ApplicationForm() {
     setError("");
 
     try {
+      // Parse "YYYY-MM-DD" date inputs into JotForm's [month]/[day]/[year] sub-fields
+      const splitDate = (iso: string) => {
+        const [year, month, day] = iso.split("-");
+        return { month, day, year };
+      };
+
+      const startDate = splitDate(data.startDate);
+      const dob = splitDate(data.dob);
+      const sigDate = splitDate(data.signatureDate);
+
       const formPayload = new FormData();
       formPayload.append("formID", JOTFORM_ID);
-      // Map to JotForm field IDs
+
+      // Business info
       formPayload.append("q3_businessName", data.businessName);
-      formPayload.append("q4_dba", data.dba);
-      formPayload.append("q5_businessAddress", data.businessAddress);
-      formPayload.append("q6_businessCity", data.businessCity);
-      formPayload.append("q7_businessState", data.businessState);
-      formPayload.append("q8_businessZip", data.businessZip);
-      formPayload.append("q9_ein", data.ein);
-      formPayload.append("q10_entityType", data.entityType);
-      formPayload.append("q11_startDate", data.startDate);
-      formPayload.append("q12_firstName", data.firstName);
-      formPayload.append("q13_lastName", data.lastName);
-      formPayload.append("q14_email", data.email);
-      formPayload.append("q15_phone", data.phone);
-      formPayload.append(
-        "q16_homeAddress",
-        `${data.homeAddress}, ${data.homeCity}, ${data.homeState} ${data.homeZip}`
-      );
-      formPayload.append("q17_dob", data.dob);
-      formPayload.append("q18_ssn", data.ssn);
-      formPayload.append("q19_ownership", data.ownership);
-      formPayload.append("q20_creditScore", data.creditScore);
-      formPayload.append("q21_signatureDate", data.signatureDate);
+      formPayload.append("q4_dbaName", data.dba);
+
+      // Business address (JotForm address widget — q43)
+      formPayload.append("q43_businessAddress[addr_line1]", data.businessAddress);
+      formPayload.append("q43_businessAddress[city]", data.businessCity);
+      formPayload.append("q43_businessAddress[state]", data.businessState);
+      formPayload.append("q43_businessAddress[postal]", data.businessZip);
+
+      // Business details
+      formPayload.append("q17_federalTax", data.ein);
+      formPayload.append("q18_legalEntity", data.entityType);
+      formPayload.append("q19_businessStart[month]", startDate.month);
+      formPayload.append("q19_businessStart[day]", startDate.day);
+      formPayload.append("q19_businessStart[year]", startDate.year);
+
+      // Owner info
+      formPayload.append("q21_firstName", data.firstName);
+      formPayload.append("q22_lastName", data.lastName);
+      formPayload.append("q23_email", data.email);
+      formPayload.append("q24_phoneNumber[full]", data.phone);
+
+      // Home address (JotForm address widget — q25)
+      formPayload.append("q25_homeAddress[addr_line1]", data.homeAddress);
+      formPayload.append("q25_homeAddress[city]", data.homeCity);
+      formPayload.append("q25_homeAddress[state]", data.homeState);
+      formPayload.append("q25_homeAddress[postal]", data.homeZip);
+
+      // Date of birth (JotForm date widget — q26)
+      formPayload.append("q26_dateOf[month]", dob.month);
+      formPayload.append("q26_dateOf[day]", dob.day);
+      formPayload.append("q26_dateOf[year]", dob.year);
+
+      formPayload.append("q27_socialSecurity", data.ssn);
+      formPayload.append("q28_ownershipPercentage", data.ownership);
+      formPayload.append("q29_creditScore", data.creditScore);
+
+      // Certification date (JotForm date widget — q40)
+      formPayload.append("q40_date[month]", sigDate.month);
+      formPayload.append("q40_date[day]", sigDate.day);
+      formPayload.append("q40_date[year]", sigDate.year);
+
+      // q51_signature exists on the JotForm but the site doesn't collect
+      // a drawn signature — the certification checkbox + date serves the same purpose.
 
       if (bankStatement) {
-        formPayload.append("q22_bankStatement", bankStatement);
+        formPayload.append("q32_uploadYour[]", bankStatement);
       }
 
       const response = await fetch(JOTFORM_URL, {
