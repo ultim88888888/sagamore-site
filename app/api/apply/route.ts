@@ -87,7 +87,8 @@ function parseDateParts(isoDate: string): {
 async function uploadFileToJotForm(
   fileBytes: ArrayBuffer,
   fileName: string,
-  tempFolder: string
+  tempFolder: string,
+  signal: AbortSignal,
 ): Promise<{ fileName: string; fileServer: string }> {
   const params = new URLSearchParams({
     action: "multipleUpload",
@@ -105,6 +106,7 @@ async function uploadFileToJotForm(
       "Content-Type": "application/octet-stream",
     },
     body: new Blob([fileBytes]),
+    signal,
   });
 
   if (!response.ok) {
@@ -308,7 +310,14 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
+  }
 
+  // Single abort controller spanning both file upload and form submission.
+  // 25s budget accommodates uploading up to 10MB + the submission POST.
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 25_000);
+
+  if (file && file instanceof File && file.size > 0) {
     // Sanitize filename — strip path separators and special chars
     const safeName = file.name
       .replace(/[/\\:*?"<>|]/g, "_")
@@ -322,10 +331,12 @@ export async function POST(request: NextRequest) {
       const uploadResult = await uploadFileToJotForm(
         arrayBuffer,
         safeName,
-        tempFolder
+        tempFolder,
+        controller.signal,
       );
       fileUpload = { ...uploadResult, tempFolder };
     } catch (err) {
+      clearTimeout(timeout);
       console.error("File upload to JotForm failed:", err);
       return NextResponse.json(
         { error: "Failed to upload bank statement. Please try again." },
@@ -336,9 +347,6 @@ export async function POST(request: NextRequest) {
 
   // Submit to JotForm
   const submitBody = buildSubmitBody(fields, fileUpload);
-
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 15_000);
 
   try {
     const response = await fetch(JOTFORM_SUBMIT_URL, {
@@ -359,8 +367,11 @@ export async function POST(request: NextRequest) {
       let submissionId: string | null = null;
       try {
         const lookupResp = await fetch(
-          `https://api.jotform.com/form/${JOTFORM_FORM_ID}/submissions?apiKey=${apiKey}&limit=1&orderby=created_at`,
-          { signal: AbortSignal.timeout(5_000) }
+          `https://api.jotform.com/form/${JOTFORM_FORM_ID}/submissions?limit=1&orderby=created_at`,
+          {
+            headers: { APIKEY: apiKey },
+            signal: AbortSignal.timeout(5_000),
+          }
         );
         const lookupData = (await lookupResp.json()) as {
           content?: Array<{ id: string }>;
