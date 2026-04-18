@@ -58,7 +58,9 @@ function parseDateParts(isoDate: string): {
   day: string;
   year: string;
 } {
-  const [year, month, day] = isoDate.split("-");
+  const parts = isoDate.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!parts) throw new Error(`Invalid date format: ${isoDate}`);
+  const [, year, month, day] = parts;
   return { month, day, year };
 }
 
@@ -168,16 +170,31 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const submissionData = buildSubmissionData(payload);
+  let submissionData: Record<string, string>;
+  try {
+    submissionData = buildSubmissionData(payload);
+  } catch (err) {
+    return NextResponse.json(
+      { error: err instanceof Error ? err.message : "Invalid date field format" },
+      { status: 400 }
+    );
+  }
 
-  // JotForm POST API accepts URL-encoded form data with apiKey as query param
+  // JotForm POST API accepts URL-encoded form data with API key in header
   const body = new URLSearchParams(submissionData);
 
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 10_000);
+
   try {
-    const response = await fetch(`${JOTFORM_API_URL}?apiKey=${apiKey}`, {
+    const response = await fetch(JOTFORM_API_URL, {
       method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        APIKEY: apiKey,
+      },
       body: body.toString(),
+      signal: controller.signal,
     });
 
     const result = await response.json();
@@ -209,5 +226,7 @@ export async function POST(request: NextRequest) {
       { error: "Unable to reach the submission service. Please try again." },
       { status: 503 }
     );
+  } finally {
+    clearTimeout(timeout);
   }
 }
