@@ -213,16 +213,10 @@ function buildSubmitBody(
   return new URLSearchParams(data);
 }
 
-export async function POST(request: NextRequest) {
-  const apiKey = process.env.JOTFORM_API_KEY;
-  if (!apiKey) {
-    console.error("JOTFORM_API_KEY environment variable is not set");
-    return NextResponse.json(
-      { error: "Server configuration error" },
-      { status: 500 }
-    );
-  }
+/** PDF magic bytes: %PDF (0x25 0x50 0x44 0x46) */
+const PDF_MAGIC = new Uint8Array([0x25, 0x50, 0x44, 0x46]);
 
+export async function POST(request: NextRequest) {
   // Parse multipart form data from client
   let formData: globalThis.FormData;
   try {
@@ -290,65 +284,78 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  // Handle file upload
+  // Handle file validation — validate before starting any network I/O
   let fileUpload:
     | { fileName: string; fileServer: string; tempFolder: string }
+    | undefined;
+  let validatedFile:
+    | { buffer: ArrayBuffer; safeName: string; tempFolder: string }
     | undefined;
 
   const file = formData.get("bankStatement");
   if (file && file instanceof File && file.size > 0) {
-    // Validate file
-    if (file.type !== "application/pdf") {
-      return NextResponse.json(
-        { error: "Bank statement must be a PDF file" },
-        { status: 400 }
-      );
-    }
     if (file.size > MAX_FILE_SIZE) {
       return NextResponse.json(
         { error: "File size exceeds 10MB limit" },
         { status: 400 }
       );
     }
-  }
 
-  // Single abort controller spanning both file upload and form submission.
-  // 25s budget accommodates uploading up to 10MB + the submission POST.
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 25_000);
+    // Validate PDF via magic bytes — file.type is client-controlled and
+    // untrusted. For a financial services form we verify the actual content.
+    const buffer = await file.arrayBuffer();
+    const header = new Uint8Array(buffer, 0, 4);
+    if (
+      header.length < 4 ||
+      !header.every((byte, i) => byte === PDF_MAGIC[i])
+    ) {
+      return NextResponse.json(
+        { error: "Bank statement must be a PDF file" },
+        { status: 400 }
+      );
+    }
 
-  if (file && file instanceof File && file.size > 0) {
     // Sanitize filename — strip path separators and special chars
     const safeName = file.name
       .replace(/[/\\:*?"<>|]/g, "_")
       .replace(/\s+/g, "_")
       .slice(0, 100);
 
-    const tempFolder = crypto.randomUUID().replace(/-/g, "").slice(0, 16);
-
-    try {
-      const arrayBuffer = await file.arrayBuffer();
-      const uploadResult = await uploadFileToJotForm(
-        arrayBuffer,
-        safeName,
-        tempFolder,
-        controller.signal,
-      );
-      fileUpload = { ...uploadResult, tempFolder };
-    } catch (err) {
-      clearTimeout(timeout);
-      console.error("File upload to JotForm failed:", err);
-      return NextResponse.json(
-        { error: "Failed to upload bank statement. Please try again." },
-        { status: 502 }
-      );
-    }
+    validatedFile = {
+      buffer,
+      safeName,
+      tempFolder: crypto.randomUUID().replace(/-/g, "").slice(0, 16),
+    };
   }
 
-  // Submit to JotForm
-  const submitBody = buildSubmitBody(fields, fileUpload);
+  // Single abort controller spanning file upload (if any) and form submission.
+  // 25s budget accommodates uploading up to 10MB + the submission POST.
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 25_000);
 
   try {
+    // Upload file to JotForm if one was provided
+    if (validatedFile) {
+      try {
+        const uploadResult = await uploadFileToJotForm(
+          validatedFile.buffer,
+          validatedFile.safeName,
+          validatedFile.tempFolder,
+          controller.signal,
+        );
+        fileUpload = { ...uploadResult, tempFolder: validatedFile.tempFolder };
+      } catch (err) {
+        console.error("File upload to JotForm failed:", err);
+        return NextResponse.json(
+          { error: "Failed to upload bank statement. Please try again." },
+          { status: 502 }
+        );
+      }
+    }
+
+    // Submit to JotForm
+    const submitBody = buildSubmitBody(fields, fileUpload);
+
     const response = await fetch(JOTFORM_SUBMIT_URL, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -360,25 +367,13 @@ export async function POST(request: NextRequest) {
     // submit.jotform.com returns 200 with a "thank you" HTML page on success,
     // or 301 redirect to the thank you page. 400 means missing/invalid fields.
     if (response.status === 200 || response.status === 301) {
-      // Try to extract submission ID from the response/redirect URL.
-      // The thank you page URL sometimes contains the submission ID, but
-      // it's not guaranteed. We use the API to look up the latest submission
-      // to get the ID reliably.
+      // Try to extract submission ID from the redirect Location header.
+      // The thank-you URL format is: /submit/.../{submissionId}
       let submissionId: string | null = null;
-      try {
-        const lookupResp = await fetch(
-          `https://api.jotform.com/form/${JOTFORM_FORM_ID}/submissions?limit=1&orderby=created_at`,
-          {
-            headers: { APIKEY: apiKey },
-            signal: AbortSignal.timeout(5_000),
-          }
-        );
-        const lookupData = (await lookupResp.json()) as {
-          content?: Array<{ id: string }>;
-        };
-        submissionId = lookupData.content?.[0]?.id ?? null;
-      } catch {
-        // Non-critical — submission succeeded even if we can't get the ID
+      const location = response.headers.get("location");
+      if (location) {
+        const match = location.match(/\/(\d{10,})(?:\?|$)/);
+        submissionId = match?.[1] ?? null;
       }
 
       return NextResponse.json({ success: true, submissionId });
