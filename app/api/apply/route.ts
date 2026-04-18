@@ -237,7 +237,8 @@ export async function POST(request: NextRequest) {
     }
   }
   // Optional field
-  fields.dba = (formData.get("dba") as string) || "";
+  const dba = formData.get("dba");
+  fields.dba = typeof dba === "string" ? dba : "";
 
   // Validate required fields
   const missing = REQUIRED_FIELDS.filter((f) => !fields[f]);
@@ -304,11 +305,14 @@ export async function POST(request: NextRequest) {
     // Validate PDF via magic bytes — file.type is client-controlled and
     // untrusted. For a financial services form we verify the actual content.
     const buffer = await file.arrayBuffer();
+    if (buffer.byteLength < 4) {
+      return NextResponse.json(
+        { error: "Bank statement must be a PDF file" },
+        { status: 400 }
+      );
+    }
     const header = new Uint8Array(buffer, 0, 4);
-    if (
-      header.length < 4 ||
-      !header.every((byte, i) => byte === PDF_MAGIC[i])
-    ) {
+    if (!header.every((byte, i) => byte === PDF_MAGIC[i])) {
       return NextResponse.json(
         { error: "Bank statement must be a PDF file" },
         { status: 400 }
@@ -330,6 +334,8 @@ export async function POST(request: NextRequest) {
 
   // Single abort controller spanning file upload (if any) and form submission.
   // 25s budget accommodates uploading up to 10MB + the submission POST.
+  // Requires Vercel Pro plan (60s limit); Hobby plan (10s) would hit the
+  // platform timeout first and return 504 before this fires.
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 25_000);
 
