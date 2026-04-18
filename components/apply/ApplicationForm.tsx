@@ -3,8 +3,7 @@
 import { useState, type FormEvent, type ChangeEvent } from "react";
 import { Button } from "@/components/ui/Button";
 
-const JOTFORM_ID = "260337202144041";
-const JOTFORM_URL = `https://submit.jotform.com/submit/${JOTFORM_ID}/`;
+const API_ENDPOINT = "/api/apply";
 
 type Step = 1 | 2 | 3 | 4;
 
@@ -149,7 +148,7 @@ export function ApplicationForm() {
   const [bankStatement, setBankStatement] = useState<File | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [submitUncertain, setSubmitUncertain] = useState(false);
+  const [submissionId, setSubmissionId] = useState<string | null>(null);
   const [error, setError] = useState("");
 
   const update = (field: keyof FormData, value: string | boolean) => {
@@ -207,52 +206,53 @@ export function ApplicationForm() {
     if (!canAdvance()) return;
 
     setSubmitting(true);
-    setError(""); // clear any stale errors (e.g. from failed file upload)
+    setError("");
 
     try {
-      const formPayload = new FormData();
-      formPayload.append("formID", JOTFORM_ID);
-      formPayload.append("q3_businessName", data.businessName);
-      formPayload.append("q4_dba", data.dba);
-      formPayload.append("q5_businessAddress", data.businessAddress);
-      formPayload.append("q6_businessCity", data.businessCity);
-      formPayload.append("q7_businessState", data.businessState);
-      formPayload.append("q8_businessZip", data.businessZip);
-      formPayload.append("q9_ein", data.ein);
-      formPayload.append("q10_entityType", data.entityType);
-      formPayload.append("q11_startDate", data.startDate);
-      formPayload.append("q12_firstName", data.firstName);
-      formPayload.append("q13_lastName", data.lastName);
-      formPayload.append("q14_email", data.email);
-      formPayload.append("q15_phone", data.phone);
-      formPayload.append(
-        "q16_homeAddress",
-        `${data.homeAddress}, ${data.homeCity}, ${data.homeState} ${data.homeZip}`
-      );
-      formPayload.append("q17_dob", data.dob);
-      formPayload.append("q18_ssn", data.ssn);
-      formPayload.append("q19_ownership", data.ownership);
-      formPayload.append("q20_creditScore", data.creditScore);
-      formPayload.append("q21_signatureDate", data.signatureDate);
-
-      if (bankStatement) {
-        formPayload.append("q22_bankStatement", bankStatement);
-      }
-
-      await fetch(JOTFORM_URL, {
+      const response = await fetch(API_ENDPOINT, {
         method: "POST",
-        body: formPayload,
-        mode: "no-cors",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          businessName: data.businessName,
+          dba: data.dba,
+          businessAddress: data.businessAddress,
+          businessCity: data.businessCity,
+          businessState: data.businessState,
+          businessZip: data.businessZip,
+          ein: data.ein,
+          entityType: data.entityType,
+          startDate: data.startDate,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          phone: data.phone,
+          homeAddress: data.homeAddress,
+          homeCity: data.homeCity,
+          homeState: data.homeState,
+          homeZip: data.homeZip,
+          dob: data.dob,
+          ssn: data.ssn,
+          ownership: data.ownership,
+          creditScore: data.creditScore,
+          signatureDate: data.signatureDate,
+        }),
       });
 
-      // no-cors gives an opaque response (status 0) — can't read it,
-      // but the data was sent successfully. Treat as success.
-      setSubmitted(true);
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        setSubmissionId(result.submissionId ?? null);
+        setSubmitted(true);
+      } else {
+        setError(
+          result.error ||
+            "Something went wrong submitting your application. Please try again."
+        );
+      }
     } catch {
-      // no-cors fetch resolves on success (opaque response), so a thrown error
-      // means a genuine network failure — the request may not have reached JotForm.
-      setSubmitUncertain(true);
-      setSubmitted(true);
+      setError(
+        "Unable to reach our server. Please check your connection and try again."
+      );
     } finally {
       setSubmitting(false);
     }
@@ -261,54 +261,29 @@ export function ApplicationForm() {
   if (submitted) {
     return (
       <div className="bg-white rounded-2xl p-8 sm:p-12 shadow-sm border border-rule-light text-center">
-        {submitUncertain ? (
-          <>
-            <div className="w-16 h-16 rounded-full bg-amber-50 flex items-center justify-center mx-auto mb-6">
-              <svg viewBox="0 0 24 24" className="w-8 h-8 text-amber-500">
-                <path
-                  d="M12 9v4m0 4h.01M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Z"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  fill="none"
-                />
-              </svg>
-            </div>
-            <h2 className="text-2xl font-bold text-ink mb-3">
-              Submission May Not Have Gone Through
-            </h2>
-            <p className="text-ink-secondary leading-relaxed max-w-md mx-auto">
-              We encountered a connection issue and your application may not have
-              been received. Please contact us at{" "}
-              <a href="tel:+15164802825" className="text-azure hover:underline">
-                (516) 480-2825
-              </a>{" "}
-              to confirm your submission or apply by phone.
-            </p>
-          </>
-        ) : (
-          <>
-            <div className="w-16 h-16 rounded-full bg-success/10 flex items-center justify-center mx-auto mb-6">
-              <svg viewBox="0 0 24 24" className="w-8 h-8 text-success">
-                <path
-                  d="M20 6L9 17l-5-5"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  fill="none"
-                />
-              </svg>
-            </div>
-            <h2 className="text-2xl font-bold text-ink mb-3">
-              Application Received
-            </h2>
-            <p className="text-ink-secondary leading-relaxed max-w-md mx-auto">
-              Thank you for applying with Sagamore Financial Group. Our team will
-              review your application and reach out within one business day.
-            </p>
-          </>
+        <div className="w-16 h-16 rounded-full bg-success/10 flex items-center justify-center mx-auto mb-6">
+          <svg viewBox="0 0 24 24" className="w-8 h-8 text-success">
+            <path
+              d="M20 6L9 17l-5-5"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              fill="none"
+            />
+          </svg>
+        </div>
+        <h2 className="text-2xl font-bold text-ink mb-3">
+          Application Received
+        </h2>
+        <p className="text-ink-secondary leading-relaxed max-w-md mx-auto">
+          Thank you for applying with Sagamore Financial Group. Our team will
+          review your application and reach out within one business day.
+        </p>
+        {submissionId && (
+          <p className="text-ink-tertiary text-sm mt-4">
+            Reference: {submissionId}
+          </p>
         )}
       </div>
     );

@@ -28,8 +28,10 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files
+# env files (real values never committed — .env.op has 1Password refs only)
 .env*
+!.env.op
+!.env.example
 
 # vercel
 .vercel
