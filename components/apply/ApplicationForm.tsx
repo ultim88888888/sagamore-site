@@ -235,8 +235,6 @@ export function ApplicationForm() {
           ownership: data.ownership,
           creditScore: data.creditScore,
           signatureDate: data.signatureDate,
-          // File upload: convert to base64 for server-side forwarding
-          // (JotForm API file upload handled separately if needed)
         }),
       });
 

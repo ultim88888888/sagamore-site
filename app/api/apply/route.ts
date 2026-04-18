@@ -50,9 +50,6 @@ interface ApplicationPayload {
   ownership: string;
   creditScore: string;
   signatureDate: string; // ISO date string YYYY-MM-DD
-  // bankStatement is handled as base64 in a separate field
-  bankStatementBase64?: string;
-  bankStatementName?: string;
 }
 
 /** Parse YYYY-MM-DD into { month, day, year } for JotForm datetime fields. */
@@ -65,7 +62,7 @@ function parseDateParts(isoDate: string): {
   return { month, day, year };
 }
 
-/** Build the flat submission object JotForm's PUT API expects. */
+/** Build the flat submission object JotForm's POST API expects. */
 function buildSubmissionData(
   payload: ApplicationPayload
 ): Record<string, string> {
@@ -173,12 +170,12 @@ export async function POST(request: NextRequest) {
 
   const submissionData = buildSubmissionData(payload);
 
-  // JotForm PUT API accepts URL-encoded form data with apiKey as query param
+  // JotForm POST API accepts URL-encoded form data with apiKey as query param
   const body = new URLSearchParams(submissionData);
 
   try {
     const response = await fetch(`${JOTFORM_API_URL}?apiKey=${apiKey}`, {
-      method: "PUT",
+      method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: body.toString(),
     });
