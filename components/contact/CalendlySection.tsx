@@ -60,6 +60,7 @@ export function CalendlySection() {
           <button
             type="button"
             onClick={() => {
+              // Must match id="contact-name" in ContactForm.tsx
               document
                 .getElementById("contact-name")
                 ?.scrollIntoView({ behavior: "smooth", block: "center" });

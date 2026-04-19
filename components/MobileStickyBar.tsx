@@ -42,7 +42,7 @@ export function MobileStickyBar() {
         {/* Apply Now */}
         <Link
           href="/apply"
-          className="flex-1 flex items-center justify-center gap-2 py-3.5 text-sm font-semibold text-white bg-accent cursor-pointer"
+          className="flex-1 flex items-center justify-center gap-2 py-3.5 text-sm font-semibold text-white bg-accent hover:opacity-85 transition-opacity cursor-pointer"
         >
           Apply Now
         </Link>
