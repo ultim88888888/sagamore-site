@@ -44,8 +44,8 @@ export function Process() {
       {/* Background photo for texture */}
       <div className="absolute inset-0 opacity-8">
         <Image
-          src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80"
-          alt=""
+          src="/images/process-office.jpg"
+          alt="Modern office environment representing streamlined business processes"
           fill
           className="object-cover"
           sizes="100vw"

@@ -56,8 +56,8 @@ export function HeroSection() {
       {/* Background photo — small business context */}
       <div className="absolute inset-0 opacity-15">
         <Image
-          src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=1600&q=80"
-          alt=""
+          src="/images/hero-homepage.jpg"
+          alt="Business professionals collaborating in a modern office meeting"
           fill
           className="object-cover"
           priority
