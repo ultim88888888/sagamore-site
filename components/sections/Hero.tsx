@@ -5,17 +5,26 @@ import Link from "next/link";
 import Image from "next/image";
 
 const creditOptions = [
-  { label: "600+", sublabel: "Good\u2013Excellent" },
-  { label: "Below 600", sublabel: "Rebuilding" },
+  { label: "750–800", sublabel: "Excellent" },
+  { label: "680–740", sublabel: "Good" },
+  { label: "600–670", sublabel: "Fair" },
+  { label: "Sub 590", sublabel: "Rebuilding" },
 ];
 
-/** Multiplier derived from revenue tier; overridden to 1.25x for sub-600 credit */
-function getMultiplier(revenue: number, belowSixHundred: boolean): number {
-  if (belowSixHundred) return 1.25;
-  if (revenue <= 200_000) return 1.5;
-  if (revenue <= 500_000) return 2.3;
-  if (revenue <= 1_000_000) return 2.5;
-  return 2.7;
+/** Credit tier discounts applied to the revenue-based multiplier */
+const CREDIT_DISCOUNTS = [1.0, 0.85, 0.78, 0.7];
+
+/** Multiplier derived from revenue tier, then discounted by credit quality */
+function getMultiplier(revenue: number, creditIndex: number): number {
+  const base =
+    revenue <= 200_000
+      ? 1.5
+      : revenue <= 500_000
+        ? 2.3
+        : revenue <= 1_000_000
+          ? 2.5
+          : 2.7;
+  return base * CREDIT_DISCOUNTS[creditIndex];
 }
 
 const FLOOR = 15_000;
@@ -37,8 +46,7 @@ export function HeroSection() {
   const [revenue, setRevenue] = useState(50_000);
 
   const estimated = useMemo(() => {
-    const belowSixHundred = creditIndex === 1;
-    const raw = revenue * getMultiplier(revenue, belowSixHundred);
+    const raw = revenue * getMultiplier(revenue, creditIndex);
     return Math.min(CAP, Math.max(FLOOR, raw));
   }, [creditIndex, revenue]);
 
@@ -153,7 +161,7 @@ export function HeroSection() {
                 <label className="block text-sm font-medium text-ink mb-2.5">
                   Credit Quality
                 </label>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
                   {creditOptions.map((opt, i) => (
                     <button
                       key={opt.label}
