@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { CALENDLY_URL } from "@/lib/config";
 
 /**
@@ -58,10 +57,9 @@ export function CalendlySection() {
             we will walk through your options together. No pressure, no
             obligation.
           </p>
-          <Link
-            href="#"
-            onClick={(e) => {
-              e.preventDefault();
+          <button
+            type="button"
+            onClick={() => {
               document
                 .getElementById("contact-name")
                 ?.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -70,7 +68,7 @@ export function CalendlySection() {
             className="inline-flex items-center justify-center px-7 py-3 text-sm font-semibold text-white bg-azure hover:opacity-85 rounded-xl transition-opacity cursor-pointer"
           >
             Send Us a Message Instead
-          </Link>
+          </button>
         </div>
       )}
     </div>
