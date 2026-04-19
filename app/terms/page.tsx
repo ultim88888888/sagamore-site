@@ -1,15 +1,48 @@
 import type { Metadata } from "next";
 import { LegalPage } from "@/components/LegalPage";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbSchema, webPageSchema, SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
   description:
-    "Sagamore Financial Group terms of service. Terms and conditions governing your use of our website and services.",
+    "Sagamore Financial Group terms of service. Terms and conditions governing your use of our website and lending brokerage services.",
+  alternates: {
+    canonical: `${SITE_URL}/terms`,
+  },
+  openGraph: {
+    title: "Terms of Service | Sagamore Financial Group",
+    description:
+      "Sagamore Financial Group terms of service. Terms and conditions governing your use of our website and lending brokerage services.",
+    url: `${SITE_URL}/terms`,
+    type: "website",
+    images: [{ url: "/og/og-default.jpg" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Terms of Service | Sagamore Financial Group",
+    description:
+      "Sagamore Financial Group terms of service. Terms and conditions governing your use of our website and lending brokerage services.",
+    images: ["/og/og-default.jpg"],
+  },
 };
 
 export default function TermsPage() {
   return (
-    <LegalPage title="Terms of Service" lastUpdated="April 8, 2026">
+    <>
+      <JsonLd
+        data={breadcrumbSchema([
+          { name: "Terms of Service", path: "/terms" },
+        ])}
+      />
+      <JsonLd
+        data={webPageSchema(
+          "Terms of Service",
+          "Sagamore Financial Group terms of service. Terms and conditions governing your use of our website and lending brokerage services.",
+          "/terms"
+        )}
+      />
+      <LegalPage title="Terms of Service" lastUpdated="April 8, 2026">
       <h2>Acceptance of Terms</h2>
       <p>
         By accessing and using the Sagamore Financial Group website
@@ -145,5 +178,6 @@ export default function TermsPage() {
         .
       </p>
     </LegalPage>
+    </>
   );
 }

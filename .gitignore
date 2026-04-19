@@ -33,6 +33,9 @@ yarn-error.log*
 !.env.op
 !.env.example
 
+# next-sitemap (generated at build time)
+/public/sitemap*.xml
+
 # vercel
 .vercel
 

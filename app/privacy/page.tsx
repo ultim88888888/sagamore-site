@@ -1,15 +1,46 @@
 import type { Metadata } from "next";
 import { LegalPage } from "@/components/LegalPage";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbSchema, webPageSchema, SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
   description:
-    "Sagamore Financial Group privacy policy. How we collect, use, and protect your information.",
+    "Sagamore Financial Group privacy policy. Learn how we collect, use, and protect your personal and business information.",
+  alternates: {
+    canonical: `${SITE_URL}/privacy`,
+  },
+  openGraph: {
+    title: "Privacy Policy | Sagamore Financial Group",
+    description:
+      "Sagamore Financial Group privacy policy. Learn how we collect, use, and protect your personal and business information.",
+    url: `${SITE_URL}/privacy`,
+    type: "website",
+    images: [{ url: "/og/og-default.jpg" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Privacy Policy | Sagamore Financial Group",
+    description:
+      "Sagamore Financial Group privacy policy. Learn how we collect, use, and protect your personal and business information.",
+    images: ["/og/og-default.jpg"],
+  },
 };
 
 export default function PrivacyPage() {
   return (
-    <LegalPage title="Privacy Policy" lastUpdated="April 8, 2026">
+    <>
+      <JsonLd
+        data={breadcrumbSchema([{ name: "Privacy Policy", path: "/privacy" }])}
+      />
+      <JsonLd
+        data={webPageSchema(
+          "Privacy Policy",
+          "Sagamore Financial Group privacy policy. Learn how we collect, use, and protect your personal and business information.",
+          "/privacy"
+        )}
+      />
+      <LegalPage title="Privacy Policy" lastUpdated="April 8, 2026">
       <h2>Overview</h2>
       <p>
         Sagamore Financial Group (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;) respects your privacy and is
@@ -126,5 +157,6 @@ export default function PrivacyPage() {
         .
       </p>
     </LegalPage>
+    </>
   );
 }
