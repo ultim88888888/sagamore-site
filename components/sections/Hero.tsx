@@ -140,20 +140,20 @@ export function HeroSection() {
 
           {/* Right column — Qualification Calculator */}
           <div className="lg:sticky lg:top-28">
-            <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-xl shadow-black/10">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 shadow-xl shadow-black/10">
               <h2 className="text-lg font-bold text-ink mb-1">
                 What could you qualify for?
               </h2>
-              <p className="text-sm text-ink-tertiary mb-6">
+              <p className="text-sm text-ink-tertiary mb-4 sm:mb-6">
                 Instant estimate &mdash; no commitment required.
               </p>
 
               {/* Credit Quality */}
-              <div className="mb-6">
+              <div className="mb-4 sm:mb-6">
                 <label className="block text-sm font-medium text-ink mb-2.5">
                   Credit Quality
                 </label>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-2 gap-1.5 sm:gap-2">
                   {creditOptions.map((opt, i) => (
                     <button
                       key={opt.label}
@@ -179,7 +179,7 @@ export function HeroSection() {
               </div>
 
               {/* Revenue Slider */}
-              <div className="mb-8">
+              <div className="mb-5 sm:mb-8">
                 <div className="flex items-center justify-between mb-2.5">
                   <label className="text-sm font-medium text-ink">
                     Monthly Revenue
@@ -207,11 +207,11 @@ export function HeroSection() {
               </div>
 
               {/* Result */}
-              <div className="text-center py-5 rounded-xl mb-6" style={{ background: "linear-gradient(135deg, var(--color-azure-pale) 0%, var(--color-accent-pale) 100%)" }}>
+              <div className="text-center py-4 sm:py-5 rounded-xl mb-4 sm:mb-6" style={{ background: "linear-gradient(135deg, var(--color-azure-pale) 0%, var(--color-accent-pale) 100%)" }}>
                 <p className="text-xs text-ink-tertiary mb-1.5 uppercase tracking-wide font-medium">
                   Estimated Funding
                 </p>
-                <p className="text-4xl sm:text-5xl font-bold text-azure-deep tabular-nums tracking-tight">
+                <p className="text-3xl sm:text-4xl lg:text-5xl font-bold text-azure-deep tabular-nums tracking-tight">
                   {formatCurrency(estimated)}
                 </p>
               </div>

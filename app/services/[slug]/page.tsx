@@ -248,6 +248,34 @@ export default async function ServicePage({
         </div>
       </section>
 
+      {/* Mobile summary strip — key conversion info above the fold */}
+      <div className="lg:hidden">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8 -mt-6 mb-8">
+          <div
+            className="rounded-2xl p-5 flex items-center justify-between gap-4"
+            style={{
+              background:
+                "linear-gradient(135deg, var(--color-azure-pale) 0%, var(--color-accent-pale) 100%)",
+            }}
+          >
+            <div className="min-w-0">
+              <p className="text-sm font-bold text-ink truncate">
+                {product.name}
+              </p>
+              <p className="text-lg font-bold text-azure-deep tracking-tight">
+                {product.range}
+              </p>
+            </div>
+            <Link
+              href="/apply"
+              className="shrink-0 inline-flex items-center justify-center px-5 py-2.5 text-sm font-semibold text-white bg-azure hover:opacity-85 rounded-lg transition-opacity cursor-pointer"
+            >
+              Apply Now
+            </Link>
+          </div>
+        </div>
+      </div>
+
       {/* Overview + Features */}
       <section className="py-16 sm:py-24">
         <div className="max-w-7xl mx-auto px-5 sm:px-8">
