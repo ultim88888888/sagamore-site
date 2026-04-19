@@ -12,6 +12,7 @@ export function Header() {
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const pathname = usePathname();
+  const phoneHref = getPhoneHref();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -222,9 +223,9 @@ export function Header() {
             Contact
           </Link>
 
-          {PHONE_NUMBER && (
+          {PHONE_NUMBER && phoneHref && (
             <a
-              href={getPhoneHref()!}
+              href={phoneHref}
               className={`text-sm font-medium tracking-wide transition-colors duration-150 cursor-pointer ${navLinkClass}`}
             >
               {PHONE_NUMBER}

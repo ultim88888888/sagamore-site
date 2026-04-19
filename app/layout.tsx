@@ -54,7 +54,7 @@ export default function RootLayout({
       <body>
         <JsonLd data={organizationSchema} />
         <Header />
-        <main className="pb-[60px] md:pb-0">{children}</main>
+        <main className="pb-[calc(60px+env(safe-area-inset-bottom))] md:pb-0">{children}</main>
         <Footer />
         <MobileStickyBar />
       </body>
