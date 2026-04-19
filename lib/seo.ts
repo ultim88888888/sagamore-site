@@ -18,6 +18,8 @@ export const organizationSchema = {
   url: SITE_URL,
   logo: `${SITE_URL}/shield.png`,
   email: "info@sagamorefinancialgroup.com",
+  telephone: "+1-617-465-5765",
+  sameAs: ["https://www.linkedin.com/company/sagamore-financial-group"],
   address: {
     "@type": "PostalAddress",
     streetAddress: "70 Charles Lindbergh Blvd",
@@ -57,6 +59,32 @@ export const webSiteSchema = {
     url: SITE_URL,
   },
 };
+
+/**
+ * Build a WebPage schema for a page.
+ *
+ * @param name - Page title (e.g. "About Us")
+ * @param description - Page meta description
+ * @param path - URL path (e.g. "/about"). Use "" for homepage.
+ */
+export function webPageSchema(
+  name: string,
+  description: string,
+  path: string
+): Record<string, unknown> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name,
+    description,
+    url: path ? `${SITE_URL}${path}` : SITE_URL,
+    isPartOf: {
+      "@type": "WebSite",
+      name: SITE_NAME,
+      url: SITE_URL,
+    },
+  };
+}
 
 /**
  * Build a BreadcrumbList schema from path segments.

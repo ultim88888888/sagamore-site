@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { JsonLd } from "@/components/JsonLd";
-import { breadcrumbSchema, SITE_URL } from "@/lib/seo";
+import { breadcrumbSchema, webPageSchema, SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Contact Us",
@@ -16,14 +16,14 @@ export const metadata: Metadata = {
       "Get in touch with Sagamore Financial Group. Questions about business funding, applications, or our products? Our team responds within one business day.",
     url: `${SITE_URL}/contact`,
     type: "website",
-    images: [{ url: "/og/contact.jpg" }],
+    images: [{ url: "/og/og-default.jpg" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Contact Us | Sagamore Financial Group",
     description:
       "Get in touch with Sagamore Financial Group. Questions about business funding, applications, or our products? Our team responds within one business day.",
-    images: ["/og/contact.jpg"],
+    images: ["/og/og-default.jpg"],
   },
 };
 
@@ -32,6 +32,13 @@ export default function ContactPage() {
     <>
       <JsonLd
         data={breadcrumbSchema([{ name: "Contact", path: "/contact" }])}
+      />
+      <JsonLd
+        data={webPageSchema(
+          "Contact Us",
+          "Get in touch with Sagamore Financial Group. Questions about business funding, applications, or our products? Our team responds within one business day.",
+          "/contact"
+        )}
       />
       <section className="pt-28 sm:pt-36 pb-20 sm:pb-28 relative">
         <div

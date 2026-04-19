@@ -11,6 +11,7 @@ import { JsonLd } from "@/components/JsonLd";
 import {
   breadcrumbSchema,
   financialProductSchema,
+  webPageSchema,
   SITE_URL,
 } from "@/lib/seo";
 
@@ -48,13 +49,13 @@ export async function generateMetadata({
       description,
       url: pageUrl,
       type: "website",
-      images: [{ url: `/og/${slug}.jpg` }],
+      images: [{ url: "/og/og-default.jpg" }],
     },
     twitter: {
       card: "summary_large_image",
       title: `${title} | Sagamore Financial Group`,
       description,
-      images: [`/og/${slug}.jpg`],
+      images: ["/og/og-default.jpg"],
     },
   };
 }
@@ -151,6 +152,13 @@ export default async function ServicePage({
     <>
       <JsonLd data={breadcrumbSchema(breadcrumbItems)} />
       <JsonLd data={financialProductSchema(product)} />
+      <JsonLd
+        data={webPageSchema(
+          product.name,
+          `${product.description} Apply through Sagamore Financial Group — one application, fast decisions, dedicated guidance.`,
+          `/services/${slug}`
+        )}
+      />
       {/* Hero */}
       <section className="pt-28 sm:pt-36 pb-20 sm:pb-28 relative overflow-hidden">
         <div

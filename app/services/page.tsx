@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { categories } from "@/lib/products";
 import { JsonLd } from "@/components/JsonLd";
-import { breadcrumbSchema, SITE_URL } from "@/lib/seo";
+import { breadcrumbSchema, webPageSchema, SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "12 Business Funding Products",
@@ -18,14 +18,14 @@ export const metadata: Metadata = {
       "Explore 12 business funding products — lines of credit, SBA loans, equipment financing, factoring, commercial mortgages, and more. One application, multiple options.",
     url: `${SITE_URL}/services`,
     type: "website",
-    images: [{ url: "/og/services.jpg" }],
+    images: [{ url: "/og/og-default.jpg" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "12 Business Funding Products | Sagamore Financial Group",
     description:
       "Explore 12 business funding products — lines of credit, SBA loans, equipment financing, factoring, commercial mortgages, and more. One application, multiple options.",
-    images: ["/og/services.jpg"],
+    images: ["/og/og-default.jpg"],
   },
 };
 
@@ -72,6 +72,13 @@ export default function ServicesPage() {
     <>
       <JsonLd
         data={breadcrumbSchema([{ name: "Services", path: "/services" }])}
+      />
+      <JsonLd
+        data={webPageSchema(
+          "12 Business Funding Products",
+          "Explore 12 business funding products — lines of credit, SBA loans, equipment financing, factoring, commercial mortgages, and more. One application, multiple options.",
+          "/services"
+        )}
       />
       {/* Page header with hero image */}
       <section className="pt-28 sm:pt-36 pb-16 sm:pb-20 relative overflow-hidden">
