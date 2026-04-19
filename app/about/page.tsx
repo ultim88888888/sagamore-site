@@ -1,11 +1,31 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbSchema, SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "About Us",
+  title: "About Us — Your Business Funding Partner",
   description:
-    "Sagamore Financial Group is a lending brokerage that matches small and mid-size businesses with the right capital. One application, hundreds of lenders, real guidance.",
+    "Sagamore Financial Group is a lending brokerage that matches small and mid-size businesses with the right capital. One application, hundreds of lenders, dedicated guidance.",
+  alternates: {
+    canonical: `${SITE_URL}/about`,
+  },
+  openGraph: {
+    title: "About Us — Your Business Funding Partner | Sagamore Financial Group",
+    description:
+      "Sagamore Financial Group is a lending brokerage that matches small and mid-size businesses with the right capital. One application, hundreds of lenders, dedicated guidance.",
+    url: `${SITE_URL}/about`,
+    type: "website",
+    images: [{ url: "/og/about.jpg" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Us — Your Business Funding Partner | Sagamore Financial Group",
+    description:
+      "Sagamore Financial Group is a lending brokerage that matches small and mid-size businesses with the right capital. One application, hundreds of lenders, dedicated guidance.",
+    images: ["/og/about.jpg"],
+  },
 };
 
 const pillars = [
@@ -110,6 +130,7 @@ const steps = [
 export default function AboutPage() {
   return (
     <>
+      <JsonLd data={breadcrumbSchema([{ name: "About", path: "/about" }])} />
       {/* ── Hero ── */}
       <section className="pt-28 sm:pt-36 pb-16 sm:pb-20 relative overflow-hidden">
         <div

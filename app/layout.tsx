@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { JsonLd } from "@/components/JsonLd";
+import { organizationSchema, SITE_URL, SITE_NAME } from "@/lib/seo";
 import "./globals.css";
 
 const inter = Inter({
@@ -11,8 +13,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Sagamore Financial Group — Business Funding, Built on Trust",
+    default: "Small Business Funding & Loans | Sagamore Financial Group",
     template: "%s | Sagamore Financial Group",
   },
   description:
@@ -27,12 +30,12 @@ export const metadata: Metadata = {
     "Sagamore Financial Group",
   ],
   openGraph: {
-    title: "Sagamore Financial Group — Business Funding, Built on Trust",
-    description:
-      "We connect growing businesses with the right capital. $45M+ deployed, 4,000+ companies backed.",
     type: "website",
     locale: "en_US",
-    siteName: "Sagamore Financial Group",
+    siteName: SITE_NAME,
+  },
+  twitter: {
+    card: "summary_large_image",
   },
   robots: {
     index: true,
@@ -48,6 +51,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body>
+        <JsonLd data={organizationSchema} />
         <Header />
         <main>{children}</main>
         <Footer />

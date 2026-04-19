@@ -7,6 +7,12 @@ import {
   getProductBySlug,
   getCategoryForSlug,
 } from "@/lib/products";
+import { JsonLd } from "@/components/JsonLd";
+import {
+  breadcrumbSchema,
+  financialProductSchema,
+  SITE_URL,
+} from "@/lib/seo";
 
 /* ─── Static Params ─── */
 
@@ -25,9 +31,31 @@ export async function generateMetadata({
   const product = getProductBySlug(slug);
   if (!product) return { title: "Not Found" };
 
+  const pageUrl = `${SITE_URL}/services/${slug}`;
+  const titleSuffix =
+    product.range !== "Consultation" ? ` — ${product.range}` : "";
+  const title = `${product.name}${titleSuffix}`;
+  const description = `${product.description} Apply through Sagamore Financial Group — one application, fast decisions, dedicated guidance.`;
+
   return {
-    title: product.name,
-    description: product.description,
+    title,
+    description,
+    alternates: {
+      canonical: pageUrl,
+    },
+    openGraph: {
+      title: `${title} | Sagamore Financial Group`,
+      description,
+      url: pageUrl,
+      type: "website",
+      images: [{ url: `/og/${slug}.jpg` }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} | Sagamore Financial Group`,
+      description,
+      images: [`/og/${slug}.jpg`],
+    },
   };
 }
 
@@ -110,8 +138,19 @@ export default async function ServicePage({
   const nextProduct =
     currentIndex < siblings.length - 1 ? siblings[currentIndex + 1] : null;
 
+  // Breadcrumb items: Home > Services > [Category] > Product
+  const breadcrumbItems = [
+    { name: "Services", path: "/services" },
+    ...(category
+      ? [{ name: category.title, path: `/services#${category.id}` }]
+      : []),
+    { name: product.name, path: `/services/${slug}` },
+  ];
+
   return (
     <>
+      <JsonLd data={breadcrumbSchema(breadcrumbItems)} />
+      <JsonLd data={financialProductSchema(product)} />
       {/* Hero */}
       <section className="pt-28 sm:pt-36 pb-20 sm:pb-28 relative overflow-hidden">
         <div

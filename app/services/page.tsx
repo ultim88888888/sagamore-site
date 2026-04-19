@@ -2,11 +2,31 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { categories } from "@/lib/products";
+import { JsonLd } from "@/components/JsonLd";
+import { breadcrumbSchema, SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Services",
+  title: "12 Business Funding Products",
   description:
-    "Explore our full suite of business funding products — from lines of credit and SBA loans to equipment financing, factoring, and commercial real estate.",
+    "Explore 12 business funding products — lines of credit, SBA loans, equipment financing, factoring, commercial mortgages, and more. One application, multiple options.",
+  alternates: {
+    canonical: `${SITE_URL}/services`,
+  },
+  openGraph: {
+    title: "12 Business Funding Products | Sagamore Financial Group",
+    description:
+      "Explore 12 business funding products — lines of credit, SBA loans, equipment financing, factoring, commercial mortgages, and more. One application, multiple options.",
+    url: `${SITE_URL}/services`,
+    type: "website",
+    images: [{ url: "/og/services.jpg" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "12 Business Funding Products | Sagamore Financial Group",
+    description:
+      "Explore 12 business funding products — lines of credit, SBA loans, equipment financing, factoring, commercial mortgages, and more. One application, multiple options.",
+    images: ["/og/services.jpg"],
+  },
 };
 
 function CheckIcon() {
@@ -50,6 +70,9 @@ function ArrowIcon() {
 export default function ServicesPage() {
   return (
     <>
+      <JsonLd
+        data={breadcrumbSchema([{ name: "Services", path: "/services" }])}
+      />
       {/* Page header with hero image */}
       <section className="pt-28 sm:pt-36 pb-16 sm:pb-20 relative overflow-hidden">
         <div
