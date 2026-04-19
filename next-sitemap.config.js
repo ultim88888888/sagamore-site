@@ -3,6 +3,7 @@ const config = {
   siteUrl: "https://www.sagamorefinancialgroup.com",
   generateRobotsTxt: false, // We maintain robots.txt manually in /public
   outDir: "public",
+  exclude: ["/icon.png", "/api/*"],
   changefreq: "monthly",
   priority: 0.8,
   transform: async (_config, path) => {
@@ -46,4 +47,4 @@ const config = {
   },
 };
 
-export default config;
+module.exports = config;

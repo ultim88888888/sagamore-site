@@ -10,7 +10,9 @@ import { JsonLd } from "@/components/JsonLd";
 import { webSiteSchema, SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Small Business Funding & Loans | Sagamore Financial Group",
+  title: {
+    absolute: "Small Business Funding & Loans | Sagamore Financial Group",
+  },
   description:
     "Access lines of credit, SBA loans, equipment financing, and 9 more funding products through one application. $45M+ deployed for 4,000+ businesses. Apply in minutes.",
   alternates: {
