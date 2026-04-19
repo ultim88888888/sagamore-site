@@ -39,6 +39,29 @@ export function Header() {
     return () => document.removeEventListener("keydown", handleKey);
   }, []);
 
+  // Close dropdown when tapping outside (touch devices + mouse clicks)
+  useEffect(() => {
+    if (!servicesOpen) return;
+
+    function handleClickOutside(e: MouseEvent | TouchEvent) {
+      const target = e.target as Node;
+      if (
+        dropdownRef.current?.contains(target) ||
+        triggerRef.current?.contains(target)
+      ) {
+        return;
+      }
+      setServicesOpen(false);
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
+  }, [servicesOpen]);
+
   const handleMouseEnter = useCallback(() => {
     if (closeTimerRef.current) {
       clearTimeout(closeTimerRef.current);

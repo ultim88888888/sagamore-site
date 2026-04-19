@@ -430,7 +430,7 @@ export function ApplicationForm() {
                 onChange={(e) => update("businessAddress", e.target.value)}
                 placeholder="123 Main Street"
               />
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <InputField
                   label="City"
                   required
@@ -529,7 +529,7 @@ export function ApplicationForm() {
                 value={data.homeAddress}
                 onChange={(e) => update("homeAddress", e.target.value)}
               />
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <InputField
                   label="City"
                   required
@@ -652,7 +652,7 @@ export function ApplicationForm() {
                 </div>
               </div>
 
-              <div className="border border-rule rounded-lg bg-surface max-h-48 overflow-y-auto p-4 text-xs text-ink-secondary leading-relaxed">
+              <div className="border border-rule rounded-lg bg-surface max-h-32 sm:max-h-48 overflow-y-auto p-4 text-xs text-ink-secondary leading-relaxed">
                 <p className="mb-3">
                   By signing below, each of the above listed business and business
                   owners (individually and collectively, &quot;Applicant&quot;) certify

@@ -67,7 +67,7 @@ export function ValueProp() {
               className="group relative rounded-2xl overflow-hidden border border-rule-light bg-white"
             >
               {/* Card photo */}
-              <div className="relative h-56 overflow-hidden">
+              <div className="relative h-40 sm:h-48 lg:h-56 overflow-hidden">
                 <Image
                   src={prop.image}
                   alt={prop.imageAlt}
