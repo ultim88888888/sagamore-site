@@ -4,6 +4,7 @@ import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { JsonLd } from "@/components/JsonLd";
 import { organizationSchema, SITE_URL, SITE_NAME } from "@/lib/seo";
+import { MobileStickyBar } from "@/components/MobileStickyBar";
 import "./globals.css";
 
 const inter = Inter({
@@ -53,8 +54,9 @@ export default function RootLayout({
       <body>
         <JsonLd data={organizationSchema} />
         <Header />
-        <main>{children}</main>
+        <main className="pb-[60px] md:pb-0">{children}</main>
         <Footer />
+        <MobileStickyBar />
       </body>
     </html>
   );

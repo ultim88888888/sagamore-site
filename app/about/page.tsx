@@ -373,13 +373,13 @@ export default function AboutPage() {
               href="/apply"
               className="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white bg-accent hover:opacity-85 rounded-xl transition-opacity cursor-pointer"
             >
-              Start Your Application
+              Apply Now &mdash; 5 Min Application
             </Link>
             <Link
               href="/contact"
               className="inline-flex items-center justify-center px-8 py-3.5 text-base font-medium text-white/80 border border-white/20 hover:border-white/40 rounded-xl transition-colors cursor-pointer"
             >
-              Talk to Our Team
+              Book a Free Consultation
             </Link>
           </div>
         </div>

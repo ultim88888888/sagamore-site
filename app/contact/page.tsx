@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbSchema, webPageSchema, SITE_URL } from "@/lib/seo";
+import { TrustBadges } from "@/components/TrustBadges";
+import { CalendlySection } from "@/components/contact/CalendlySection";
+import { PHONE_NUMBER, getPhoneHref, ADDRESS } from "@/lib/config";
 
 export const metadata: Metadata = {
   title: "Contact Us",
@@ -28,6 +31,8 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
+  const phoneHref = getPhoneHref();
+
   return (
     <>
       <JsonLd
@@ -50,7 +55,7 @@ export default function ContactPage() {
         />
         <div className="relative max-w-7xl mx-auto px-5 sm:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
-            {/* Left — info */}
+            {/* Left -- info */}
             <div>
               <p className="text-sm font-semibold tracking-widest uppercase text-azure mb-4">
                 Contact Us
@@ -75,6 +80,29 @@ export default function ContactPage() {
                   </a>
                 </div>
 
+                {PHONE_NUMBER && phoneHref && (
+                  <div>
+                    <h2 className="text-sm font-semibold text-ink mb-1">Phone</h2>
+                    <a
+                      href={phoneHref}
+                      className="text-azure hover:text-azure-dark transition-colors cursor-pointer"
+                    >
+                      {PHONE_NUMBER}
+                    </a>
+                  </div>
+                )}
+
+                <div>
+                  <h2 className="text-sm font-semibold text-ink mb-1">
+                    Office
+                  </h2>
+                  <p className="text-ink-secondary text-sm leading-relaxed">
+                    {ADDRESS.street}
+                    <br />
+                    {ADDRESS.city}, {ADDRESS.state} {ADDRESS.zip}
+                  </p>
+                </div>
+
                 <div>
                   <h2 className="text-sm font-semibold text-ink mb-1">
                     Response Time
@@ -95,10 +123,16 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Right — form */}
-            <div>
+            {/* Right -- form + trust badges */}
+            <div className="space-y-5">
+              <TrustBadges />
               <ContactForm />
             </div>
+          </div>
+
+          {/* Calendly section */}
+          <div className="mt-16 lg:mt-20">
+            <CalendlySection />
           </div>
         </div>
       </section>

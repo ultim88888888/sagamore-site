@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { LogoMark } from "@/components/Logo";
+import { PHONE_NUMBER, getPhoneHref, ADDRESS } from "@/lib/config";
 
 const footerLinks = {
   Products: [
@@ -20,6 +21,8 @@ const footerLinks = {
 };
 
 export function Footer() {
+  const phoneHref = getPhoneHref();
+
   return (
     <footer className="bg-navy text-white/80">
       <div className="max-w-7xl mx-auto px-5 sm:px-8 py-16 sm:py-20">
@@ -36,14 +39,35 @@ export function Footer() {
               Connecting growing businesses with the right capital since day one.
               Lines of credit, term loans, SBA, equipment financing, and more.
             </p>
-            <p className="text-sm text-white/50">
-              <a
-                href="mailto:info@sagamorefinancialgroup.com"
-                className="hover:text-white/80 transition-colors cursor-pointer"
-              >
-                info@sagamorefinancialgroup.com
-              </a>
-            </p>
+
+            {/* Contact details */}
+            <div className="space-y-2 text-sm text-white/50">
+              <p>
+                <a
+                  href="mailto:info@sagamorefinancialgroup.com"
+                  className="hover:text-white/80 transition-colors cursor-pointer"
+                >
+                  info@sagamorefinancialgroup.com
+                </a>
+              </p>
+
+              {PHONE_NUMBER && phoneHref && (
+                <p>
+                  <a
+                    href={phoneHref}
+                    className="hover:text-white/80 transition-colors cursor-pointer"
+                  >
+                    {PHONE_NUMBER}
+                  </a>
+                </p>
+              )}
+
+              <p className="leading-relaxed">
+                {ADDRESS.street}
+                <br />
+                {ADDRESS.city}, {ADDRESS.state} {ADDRESS.zip}
+              </p>
+            </div>
           </div>
 
           {/* Link columns */}

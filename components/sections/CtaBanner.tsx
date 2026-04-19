@@ -41,7 +41,7 @@ export function CtaBanner() {
             href="/apply"
             className="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white bg-accent hover:opacity-85 rounded-xl transition-opacity cursor-pointer"
           >
-            Start Your Application
+            Get Your Free Quote
           </Link>
           <Link
             href="/contact"
