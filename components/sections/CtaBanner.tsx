@@ -12,8 +12,8 @@ export function CtaBanner() {
       {/* Background photo for depth */}
       <div className="absolute inset-0 opacity-10">
         <Image
-          src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1600&q=80"
-          alt=""
+          src="/images/cta-team.jpg"
+          alt="Business team celebrating a successful funding outcome"
           fill
           className="object-cover"
           sizes="100vw"

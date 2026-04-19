@@ -14,6 +14,8 @@ import {
   webPageSchema,
   SITE_URL,
 } from "@/lib/seo";
+import { FAQ } from "@/components/FAQ";
+import { RelatedProducts } from "@/components/RelatedProducts";
 
 /* ─── Static Params ─── */
 
@@ -32,30 +34,24 @@ export async function generateMetadata({
   const product = getProductBySlug(slug);
   if (!product) return { title: "Not Found" };
 
-  const pageUrl = `${SITE_URL}/services/${slug}`;
-  const titleSuffix =
-    product.range !== "Consultation" ? ` — ${product.range}` : "";
-  const title = `${product.name}${titleSuffix}`;
-  const description = `${product.description} Apply through Sagamore Financial Group — one application, fast decisions, dedicated guidance.`;
-
   return {
-    title,
-    description,
+    title: product.name,
+    description: product.description,
     alternates: {
-      canonical: pageUrl,
+      canonical: `${SITE_URL}/services/${slug}`,
     },
     openGraph: {
-      title: `${title} | Sagamore Financial Group`,
-      description,
-      url: pageUrl,
+      title: `${product.name} | Sagamore Financial Group`,
+      description: product.description,
+      url: `${SITE_URL}/services/${slug}`,
       type: "website",
-      images: [{ url: "/og/og-default.jpg" }],
+      images: [{ url: `/og/${slug}.png` }],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${title} | Sagamore Financial Group`,
-      description,
-      images: ["/og/og-default.jpg"],
+      title: `${product.name} | Sagamore Financial Group`,
+      description: product.description,
+      images: [`/og/${slug}.png`],
     },
   };
 }
@@ -119,6 +115,14 @@ function ArrowRightIcon() {
   );
 }
 
+function StepNumber({ n }: { n: number }) {
+  return (
+    <div className="w-9 h-9 rounded-full bg-azure flex items-center justify-center shrink-0">
+      <span className="text-sm font-bold text-white">{n}</span>
+    </div>
+  );
+}
+
 /* ─── Page ─── */
 
 export default async function ServicePage({
@@ -139,26 +143,33 @@ export default async function ServicePage({
   const nextProduct =
     currentIndex < siblings.length - 1 ? siblings[currentIndex + 1] : null;
 
-  // Breadcrumb items: Home > Services > [Category] > Product
   const breadcrumbItems = [
     { name: "Services", path: "/services" },
-    ...(category
-      ? [{ name: category.title, path: `/services#${category.id}` }]
-      : []),
-    { name: product.name, path: `/services/${slug}` },
   ];
+  if (category) {
+    breadcrumbItems.push({
+      name: category.title,
+      path: `/services#${category.id}`,
+    });
+  }
+  breadcrumbItems.push({
+    name: product.name,
+    path: `/services/${slug}`,
+  });
 
   return (
     <>
+      {/* Structured data */}
       <JsonLd data={breadcrumbSchema(breadcrumbItems)} />
       <JsonLd data={financialProductSchema(product)} />
       <JsonLd
         data={webPageSchema(
           product.name,
-          `${product.description} Apply through Sagamore Financial Group — one application, fast decisions, dedicated guidance.`,
+          product.description,
           `/services/${slug}`
         )}
       />
+
       {/* Hero */}
       <section className="pt-28 sm:pt-36 pb-20 sm:pb-28 relative overflow-hidden">
         <div
@@ -171,7 +182,7 @@ export default async function ServicePage({
         <div className="absolute inset-0 opacity-12">
           <Image
             src={product.heroImage}
-            alt=""
+            alt={product.heroAlt}
             fill
             className="object-cover"
             sizes="100vw"
@@ -283,7 +294,7 @@ export default async function ServicePage({
             {/* Left column — Long description */}
             <div className="lg:col-span-3">
               <h2 className="text-2xl sm:text-3xl font-bold text-ink mb-6 tracking-tight">
-                How it works
+                Overview
               </h2>
               <p className="text-base text-ink-secondary leading-relaxed mb-8">
                 {product.longDescription}
@@ -364,7 +375,7 @@ export default async function ServicePage({
         </div>
       </section>
 
-      {/* Benefits */}
+      {/* How It Works */}
       <section className="py-16 sm:py-24 relative">
         <div
           className="absolute inset-0 pointer-events-none"
@@ -374,6 +385,38 @@ export default async function ServicePage({
           }}
         />
         <div className="relative max-w-7xl mx-auto px-5 sm:px-8">
+          <div className="max-w-3xl">
+            <p className="text-sm font-semibold tracking-widest uppercase text-azure mb-3">
+              Step by Step
+            </p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-ink mb-10 tracking-tight">
+              How {product.name} works
+            </h2>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl">
+            {product.howItWorks.map((step, i) => (
+              <div
+                key={step.title}
+                className="flex gap-4 rounded-2xl border border-rule-light bg-white p-6"
+              >
+                <StepNumber n={i + 1} />
+                <div>
+                  <h3 className="text-base font-bold text-ink mb-1.5">
+                    {step.title}
+                  </h3>
+                  <p className="text-sm text-ink-secondary leading-relaxed">
+                    {step.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Benefits */}
+      <section className="py-16 sm:py-24">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
           <div className="max-w-2xl mb-12">
             <p className="text-sm font-semibold tracking-widest uppercase text-azure mb-3">
               Why Choose This Product
@@ -400,6 +443,94 @@ export default async function ServicePage({
           </div>
         </div>
       </section>
+
+      {/* Who Qualifies */}
+      <section className="py-16 sm:py-24 relative">
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(180deg, var(--color-surface-warm) 0%, var(--color-surface-deep) 50%, var(--color-surface-warm) 100%)",
+          }}
+        />
+        <div className="relative max-w-7xl mx-auto px-5 sm:px-8">
+          <div className="max-w-3xl">
+            <p className="text-sm font-semibold tracking-widest uppercase text-azure mb-3">
+              Eligibility
+            </p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-ink mb-8 tracking-tight">
+              Who qualifies for {product.name}
+            </h2>
+            <ul className="space-y-3">
+              {product.whoQualifies.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-start gap-3 text-base text-ink-secondary"
+                >
+                  <CheckIcon />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Use Cases */}
+      <section className="py-16 sm:py-24">
+        <div className="max-w-7xl mx-auto px-5 sm:px-8">
+          <div className="max-w-3xl">
+            <p className="text-sm font-semibold tracking-widest uppercase text-azure mb-3">
+              Real-World Scenarios
+            </p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-ink mb-8 tracking-tight">
+              Common use cases
+            </h2>
+            <div className="space-y-5">
+              {product.useCases.map((useCase, i) => (
+                <div
+                  key={i}
+                  className="border border-rule-light rounded-2xl bg-white p-6"
+                >
+                  <p className="text-sm text-ink-secondary leading-relaxed">
+                    {useCase}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Comparisons */}
+      <section className="py-16 sm:py-24 relative">
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              "linear-gradient(180deg, var(--color-surface-warm) 0%, var(--color-surface-deep) 50%, var(--color-surface-warm) 100%)",
+          }}
+        />
+        <div className="relative max-w-7xl mx-auto px-5 sm:px-8">
+          <div className="max-w-3xl">
+            <p className="text-sm font-semibold tracking-widest uppercase text-azure mb-3">
+              Compare
+            </p>
+            <h2 className="text-2xl sm:text-3xl font-bold text-ink mb-6 tracking-tight">
+              {product.name} vs. alternatives
+            </h2>
+            <p className="text-base text-ink-secondary leading-relaxed">
+              {product.comparisons}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <FAQ items={product.faqs} productName={product.name} />
+
+      {/* Related Products */}
+      <RelatedProducts slugs={product.relatedProducts} />
 
       {/* Sibling Navigation */}
       {(prevProduct || nextProduct) && (

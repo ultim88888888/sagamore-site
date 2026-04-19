@@ -17,14 +17,14 @@ export const metadata: Metadata = {
       "Sagamore Financial Group is a lending brokerage that matches small and mid-size businesses with the right capital. One application, hundreds of lenders, dedicated guidance.",
     url: `${SITE_URL}/about`,
     type: "website",
-    images: [{ url: "/og/og-default.jpg" }],
+    images: [{ url: "/og/about.png", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
     title: "About Us — Your Business Funding Partner | Sagamore Financial Group",
     description:
       "Sagamore Financial Group is a lending brokerage that matches small and mid-size businesses with the right capital. One application, hundreds of lenders, dedicated guidance.",
-    images: ["/og/og-default.jpg"],
+    images: ["/og/about.png"],
   },
 };
 
@@ -149,8 +149,8 @@ export default function AboutPage() {
         />
         <div className="absolute inset-0 opacity-10">
           <Image
-            src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1600&q=80"
-            alt=""
+            src="/images/hero-about.jpg"
+            alt="Business professionals working together on funding solutions"
             fill
             className="object-cover"
             sizes="100vw"
@@ -281,8 +281,8 @@ export default function AboutPage() {
         />
         <div className="absolute inset-0 opacity-[8%]">
           <Image
-            src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=1600&q=80"
-            alt=""
+            src="/images/process-office.jpg"
+            alt="Modern office space representing Sagamore's professional approach"
             fill
             className="object-cover"
             sizes="100vw"
@@ -346,8 +346,8 @@ export default function AboutPage() {
         <div className="absolute inset-0 bg-navy" />
         <div className="absolute inset-0 opacity-10">
           <Image
-            src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1600&q=80"
-            alt=""
+            src="/images/cta-team.jpg"
+            alt="Business team celebrating a successful funding outcome"
             fill
             className="object-cover"
             sizes="100vw"
