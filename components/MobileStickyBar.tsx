@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import { PHONE_NUMBER, getPhoneHref } from "@/lib/config";
 
