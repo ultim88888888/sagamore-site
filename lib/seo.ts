@@ -52,7 +52,7 @@ export const webSiteSchema = {
   name: SITE_NAME,
   url: SITE_URL,
   description:
-    "Sagamore Financial Group connects growing businesses with the right capital -- from lines of credit and SBA loans to equipment financing and beyond.",
+    "Sagamore Financial Group connects growing businesses with the right capital — from lines of credit and SBA loans to equipment financing and beyond.",
   publisher: {
     "@type": "Organization",
     name: SITE_NAME,
@@ -142,23 +142,27 @@ export function financialProductSchema(product: {
     /\$?([\d,.]+[KMB]?)\s*[-–]\s*\$?([\d,.]+[KMB]?\+?)/i
   );
   if (rangeMatch) {
-    schema.amount = {
-      "@type": "MonetaryAmount",
-      currency: "USD",
-      minValue: parseRangeValue(rangeMatch[1]),
-      maxValue: parseRangeValue(rangeMatch[2]),
-    };
+    const minValue = parseRangeValue(rangeMatch[1]);
+    const maxValue = parseRangeValue(rangeMatch[2]);
+    if (minValue !== undefined && maxValue !== undefined) {
+      schema.amount = {
+        "@type": "MonetaryAmount",
+        currency: "USD",
+        minValue,
+        maxValue,
+      };
+    }
   }
 
   return schema;
 }
 
-/** Convert shorthand like "5K", "5M", "500K" to a number */
-function parseRangeValue(raw: string): number {
+/** Convert shorthand like "5K", "5M", "500K" to a number, or undefined if unparseable */
+function parseRangeValue(raw: string): number | undefined {
   const cleaned = raw.replace(/[,$+]/g, "");
   const multipliers: Record<string, number> = { K: 1_000, M: 1_000_000, B: 1_000_000_000 };
   const match = cleaned.match(/^([\d.]+)([KMB])?$/i);
-  if (!match) return 0;
+  if (!match) return undefined;
   const value = parseFloat(match[1]);
   const suffix = (match[2] || "").toUpperCase();
   return value * (multipliers[suffix] || 1);
