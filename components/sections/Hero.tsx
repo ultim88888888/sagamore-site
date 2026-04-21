@@ -6,14 +6,14 @@ import Image from "next/image";
 import { TrustBadges } from "@/components/TrustBadges";
 
 const creditOptions = [
-  { label: "750–800", sublabel: "Excellent" },
-  { label: "680–740", sublabel: "Good" },
-  { label: "600–670", sublabel: "Fair" },
   { label: "Sub 590", sublabel: "Rebuilding" },
+  { label: "600–670", sublabel: "Fair" },
+  { label: "680–740", sublabel: "Good" },
+  { label: "750–800", sublabel: "Excellent" },
 ];
 
 /** Credit tier discounts applied to the revenue-based multiplier */
-const CREDIT_DISCOUNTS = [1.0, 0.85, 0.78, 0.7];
+const CREDIT_DISCOUNTS = [0.7, 0.78, 0.85, 1.0];
 
 /** Multiplier derived from revenue tier, then discounted by credit quality */
 function getMultiplier(revenue: number, creditIndex: number): number {
@@ -43,7 +43,7 @@ function formatCurrency(n: number): string {
 }
 
 export function HeroSection() {
-  const [creditIndex, setCreditIndex] = useState(0);
+  const [creditIndex, setCreditIndex] = useState(3);
   const [revenue, setRevenue] = useState(50_000);
 
   const estimated = useMemo(() => {
