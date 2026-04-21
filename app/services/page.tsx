@@ -185,7 +185,7 @@ export default function ServicesPage() {
                   </ul>
 
                   <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-azure group-hover:gap-2.5 transition-all duration-200">
-                    Learn more
+                    See If You Qualify
                     <ArrowIcon />
                   </span>
                 </Link>
@@ -218,13 +218,13 @@ export default function ServicesPage() {
               href="/apply"
               className="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white bg-accent hover:opacity-85 rounded-xl transition-opacity cursor-pointer"
             >
-              Start Your Application
+              Apply Now &mdash; 5 Min Application
             </Link>
             <Link
               href="/contact"
               className="inline-flex items-center justify-center px-8 py-3.5 text-base font-medium text-white/80 border border-white/20 hover:border-white/40 rounded-xl transition-colors cursor-pointer"
             >
-              Contact Us
+              Book a Free Consultation
             </Link>
           </div>
         </div>

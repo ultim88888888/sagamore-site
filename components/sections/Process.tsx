@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import Image from "next/image";
 
 const steps = [
@@ -71,10 +72,16 @@ export function Process() {
             <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4 tracking-tight">
               Application to funding in four steps
             </h2>
-            <p className="text-white/70 text-lg leading-relaxed">
+            <p className="text-white/70 text-lg leading-relaxed mb-8">
               We keep things straightforward. No jargon, no runaround. You focus
               on your business &mdash; we handle the capital search.
             </p>
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center px-7 py-3 text-sm font-medium text-white/90 border border-white/25 hover:border-white/50 rounded-xl transition-colors cursor-pointer"
+            >
+              Book a Free Consultation
+            </Link>
           </div>
 
           {/* Right — steps */}

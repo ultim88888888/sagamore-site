@@ -5,6 +5,7 @@ import { ValueProp } from "@/components/sections/ValueProp";
 import { ServiceCategories } from "@/components/sections/ServiceCategories";
 import { Process } from "@/components/sections/Process";
 import { Qualifications } from "@/components/sections/Qualifications";
+import { Testimonials } from "@/components/Testimonials";
 import { CtaBanner } from "@/components/sections/CtaBanner";
 import { JsonLd } from "@/components/JsonLd";
 import { webSiteSchema, webPageSchema, SITE_URL } from "@/lib/seo";
@@ -51,6 +52,7 @@ export default function HomePage() {
       <ValueProp />
       <ServiceCategories />
       <Process />
+      <Testimonials />
       <Qualifications />
       <CtaBanner />
     </>

@@ -3,6 +3,7 @@
 import { useState, useMemo } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { TrustBadges } from "@/components/TrustBadges";
 
 const creditOptions = [
   { label: "750–800", sublabel: "Excellent" },
@@ -135,7 +136,7 @@ export function HeroSection() {
                 href="/apply"
                 className="inline-flex items-center justify-center px-7 py-3 text-base font-semibold text-white bg-accent hover:opacity-85 rounded-xl transition-opacity cursor-pointer"
               >
-                Start Your Application
+                Apply Now
               </Link>
               <Link
                 href="/services"
@@ -143,6 +144,11 @@ export function HeroSection() {
               >
                 View Services
               </Link>
+            </div>
+
+            {/* Trust badges */}
+            <div className="mt-6">
+              <TrustBadges variant="dark" />
             </div>
           </div>
 

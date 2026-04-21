@@ -246,13 +246,13 @@ export default async function ServicePage({
                 href="/apply"
                 className="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white bg-accent hover:opacity-85 rounded-xl transition-opacity cursor-pointer"
               >
-                Apply Now
+                Apply Now &mdash; No Credit Impact
               </Link>
               <Link
                 href="/contact"
                 className="inline-flex items-center justify-center px-8 py-3.5 text-base font-medium text-white/80 border border-white/20 hover:border-white/40 rounded-xl transition-colors cursor-pointer"
               >
-                Talk to Our Team
+                Book a Free Consultation
               </Link>
             </div>
           </div>
@@ -604,13 +604,13 @@ export default async function ServicePage({
               href="/apply"
               className="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white bg-accent hover:opacity-85 rounded-xl transition-opacity cursor-pointer"
             >
-              Start Your Application
+              Apply Now &mdash; No Credit Impact
             </Link>
             <Link
               href="/contact"
               className="inline-flex items-center justify-center px-8 py-3.5 text-base font-medium text-white/80 border border-white/20 hover:border-white/40 rounded-xl transition-colors cursor-pointer"
             >
-              Contact Us
+              Book a Free Consultation
             </Link>
           </div>
         </div>

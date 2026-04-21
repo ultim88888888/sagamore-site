@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { ApplicationForm } from "@/components/apply/ApplicationForm";
 import { JsonLd } from "@/components/JsonLd";
 import { breadcrumbSchema, webPageSchema, SITE_URL } from "@/lib/seo";
+import { TrustBadges } from "@/components/TrustBadges";
+import { TestimonialsCompact } from "@/components/Testimonials";
 
 export const metadata: Metadata = {
   title: "Apply for Business Funding",
@@ -58,6 +60,17 @@ export default function ApplyPage() {
               One application, multiple lending options. Takes about five minutes.
             </p>
           </div>
+
+          {/* Trust badges */}
+          <div className="mb-8">
+            <TrustBadges />
+          </div>
+
+          {/* Social proof */}
+          <div className="mb-8">
+            <TestimonialsCompact />
+          </div>
+
           <ApplicationForm />
         </div>
       </section>

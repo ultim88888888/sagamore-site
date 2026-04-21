@@ -5,12 +5,14 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LogoMark } from "@/components/Logo";
 import { categories } from "@/lib/products";
+import { PHONE_NUMBER, getPhoneHref } from "@/lib/config";
 
 export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
   const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const pathname = usePathname();
+  const phoneHref = getPhoneHref();
   const dropdownRef = useRef<HTMLDivElement>(null);
   const triggerRef = useRef<HTMLButtonElement>(null);
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -221,11 +223,20 @@ export function Header() {
             Contact
           </Link>
 
+          {PHONE_NUMBER && phoneHref && (
+            <a
+              href={phoneHref}
+              className={`text-sm font-medium tracking-wide transition-colors duration-150 cursor-pointer ${navLinkClass}`}
+            >
+              {PHONE_NUMBER}
+            </a>
+          )}
+
           <Link
             href="/apply"
             className={`inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold rounded-lg transition-all duration-150 cursor-pointer ${ctaClass}`}
           >
-            Get Started
+            Apply Now
           </Link>
         </div>
 
@@ -366,7 +377,7 @@ export function Header() {
               onClick={closeMobile}
               className="block w-full text-center px-6 py-3.5 text-base font-semibold text-white bg-azure hover:opacity-85 rounded-xl transition-opacity cursor-pointer mt-6"
             >
-              Get Started
+              Apply Now
             </Link>
           </div>
         </div>
