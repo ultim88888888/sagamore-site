@@ -18,14 +18,14 @@ export const metadata: Metadata = {
       "Apply for business funding in minutes. One application connects you with lines of credit, SBA loans, equipment financing, and more. No credit impact to apply.",
     url: `${SITE_URL}/apply`,
     type: "website",
-    images: [{ url: "/og/apply.png", width: 1200, height: 630 }],
+    images: [{ url: "/og/og-default.jpg" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Apply for Business Funding | Sagamore Financial Group",
     description:
       "Apply for business funding in minutes. One application connects you with lines of credit, SBA loans, equipment financing, and more. No credit impact to apply.",
-    images: ["/og/apply.png"],
+    images: ["/og/og-default.jpg"],
   },
 };
 

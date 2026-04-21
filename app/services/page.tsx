@@ -18,14 +18,14 @@ export const metadata: Metadata = {
       "Explore 12 business funding products — lines of credit, SBA loans, equipment financing, factoring, commercial mortgages, and more. One application, multiple options.",
     url: `${SITE_URL}/services`,
     type: "website",
-    images: [{ url: "/og/services.png", width: 1200, height: 630 }],
+    images: [{ url: "/og/og-default.jpg" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "12 Business Funding Products | Sagamore Financial Group",
     description:
       "Explore 12 business funding products — lines of credit, SBA loans, equipment financing, factoring, commercial mortgages, and more. One application, multiple options.",
-    images: ["/og/services.png"],
+    images: ["/og/og-default.jpg"],
   },
 };
 
@@ -91,8 +91,8 @@ export default function ServicesPage() {
         />
         <div className="absolute inset-0 opacity-10">
           <Image
-            src="/images/hero-services.jpg"
-            alt="Team meeting to discuss business funding strategies and options"
+            src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1600&q=80"
+            alt=""
             fill
             className="object-cover"
             sizes="100vw"

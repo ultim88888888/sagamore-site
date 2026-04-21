@@ -12,23 +12,23 @@ const props = [
     title: "One Application, Many Options",
     description:
       "You fill out one form. We shop it across our network of lenders and bring back the offers that actually fit your situation. No application fatigue.",
-    image: "/images/value-collaboration.jpg",
-    imageAlt: "Business team collaborating around a desk to review funding options",
+    image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&q=80",
+    imageAlt: "Business team collaborating around a desk",
     imagePosition: "center 40%" as const,
   },
   {
     title: "Honest Guidance, Not Sales Pressure",
     description:
       "We earn when you fund, but we only recommend products that make sense for your business. If the timing is not right, we will tell you.",
-    image: "/images/value-consultation.jpg",
-    imageAlt: "One-on-one consultation between a funding advisor and business owner",
+    image: "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?w=800&q=80",
+    imageAlt: "One-on-one consultation between two professionals",
     imagePosition: "center 35%" as const,
   },
   {
     title: "Speed Without Shortcuts",
     description:
       "Most clients receive a decision within 24 hours. We move fast because we have the relationships and infrastructure — not because we skip due diligence.",
-    image: "/images/value-analytics.jpg",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&q=80",
     imageAlt: "Dashboard showing business analytics and growth charts",
     imagePosition: "center" as const,
   },
@@ -67,7 +67,7 @@ export function ValueProp() {
               className="group relative rounded-2xl overflow-hidden border border-rule-light bg-white"
             >
               {/* Card photo */}
-              <div className="relative h-40 sm:h-48 lg:h-56 overflow-hidden">
+              <div className="relative h-56 overflow-hidden">
                 <Image
                   src={prop.image}
                   alt={prop.imageAlt}

@@ -19,14 +19,14 @@ export const metadata: Metadata = {
       "Get in touch with Sagamore Financial Group. Questions about business funding, applications, or our products? Our team responds within one business day.",
     url: `${SITE_URL}/contact`,
     type: "website",
-    images: [{ url: "/og/contact.png", width: 1200, height: 630 }],
+    images: [{ url: "/og/og-default.jpg" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Contact Us | Sagamore Financial Group",
     description:
       "Get in touch with Sagamore Financial Group. Questions about business funding, applications, or our products? Our team responds within one business day.",
-    images: ["/og/contact.png"],
+    images: ["/og/og-default.jpg"],
   },
 };
 
