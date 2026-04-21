@@ -28,6 +28,7 @@ export function CalendlySection() {
             className="w-full border-0"
             style={{ height: 660 }}
             loading="lazy"
+            referrerPolicy="strict-origin-when-cross-origin"
           />
         </div>
       ) : (
@@ -61,10 +62,9 @@ export function CalendlySection() {
             type="button"
             onClick={() => {
               // Must match id="contact-name" in ContactForm.tsx
-              document
-                .getElementById("contact-name")
-                ?.scrollIntoView({ behavior: "smooth", block: "center" });
-              document.getElementById("contact-name")?.focus();
+              const el = document.getElementById("contact-name");
+              el?.scrollIntoView({ behavior: "smooth", block: "center" });
+              el?.focus();
             }}
             className="inline-flex items-center justify-center px-7 py-3 text-sm font-semibold text-white bg-azure hover:opacity-85 rounded-xl transition-opacity cursor-pointer"
           >

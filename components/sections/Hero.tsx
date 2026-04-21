@@ -6,17 +6,26 @@ import Image from "next/image";
 import { TrustBadges } from "@/components/TrustBadges";
 
 const creditOptions = [
-  { label: "600+", sublabel: "Good–Excellent" },
-  { label: "Below 600", sublabel: "Rebuilding" },
+  { label: "750–800", sublabel: "Excellent" },
+  { label: "680–740", sublabel: "Good" },
+  { label: "600–670", sublabel: "Fair" },
+  { label: "Sub 590", sublabel: "Rebuilding" },
 ];
 
-/** Multiplier derived from revenue tier; overridden to 1.25x for sub-600 credit */
-function getMultiplier(revenue: number, belowSixHundred: boolean): number {
-  if (belowSixHundred) return 1.25;
-  if (revenue <= 200_000) return 1.5;
-  if (revenue <= 500_000) return 2.3;
-  if (revenue <= 1_000_000) return 2.5;
-  return 2.7;
+/** Credit tier discounts applied to the revenue-based multiplier */
+const CREDIT_DISCOUNTS = [1.0, 0.85, 0.78, 0.7];
+
+/** Multiplier derived from revenue tier, then discounted by credit quality */
+function getMultiplier(revenue: number, creditIndex: number): number {
+  const base =
+    revenue <= 200_000
+      ? 1.5
+      : revenue <= 500_000
+        ? 2.3
+        : revenue <= 1_000_000
+          ? 2.5
+          : 2.7;
+  return base * CREDIT_DISCOUNTS[creditIndex];
 }
 
 const FLOOR = 15_000;
@@ -38,8 +47,7 @@ export function HeroSection() {
   const [revenue, setRevenue] = useState(50_000);
 
   const estimated = useMemo(() => {
-    const belowSixHundred = creditIndex === 1;
-    const raw = revenue * getMultiplier(revenue, belowSixHundred);
+    const raw = revenue * getMultiplier(revenue, creditIndex);
     return Math.min(CAP, Math.max(FLOOR, raw));
   }, [creditIndex, revenue]);
 
@@ -57,8 +65,8 @@ export function HeroSection() {
       {/* Background photo — small business context */}
       <div className="absolute inset-0 opacity-15">
         <Image
-          src="https://images.unsplash.com/photo-1556761175-b413da4baf72?w=1600&q=80"
-          alt=""
+          src="/images/hero-homepage.jpg"
+          alt="Business professionals collaborating in a modern office meeting"
           fill
           className="object-cover"
           priority
@@ -146,20 +154,20 @@ export function HeroSection() {
 
           {/* Right column — Qualification Calculator */}
           <div className="lg:sticky lg:top-28">
-            <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-xl shadow-black/10">
+            <div className="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 shadow-xl shadow-black/10">
               <h2 className="text-lg font-bold text-ink mb-1">
                 What could you qualify for?
               </h2>
-              <p className="text-sm text-ink-tertiary mb-6">
+              <p className="text-sm text-ink-tertiary mb-4 sm:mb-6">
                 Instant estimate &mdash; no commitment required.
               </p>
 
               {/* Credit Quality */}
-              <div className="mb-6">
+              <div className="mb-4 sm:mb-6">
                 <label className="block text-sm font-medium text-ink mb-2.5">
                   Credit Quality
                 </label>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-1.5 sm:gap-2">
                   {creditOptions.map((opt, i) => (
                     <button
                       key={opt.label}
@@ -185,7 +193,7 @@ export function HeroSection() {
               </div>
 
               {/* Revenue Slider */}
-              <div className="mb-8">
+              <div className="mb-5 sm:mb-8">
                 <div className="flex items-center justify-between mb-2.5">
                   <label className="text-sm font-medium text-ink">
                     Monthly Revenue
@@ -213,11 +221,11 @@ export function HeroSection() {
               </div>
 
               {/* Result */}
-              <div className="text-center py-5 rounded-xl mb-6" style={{ background: "linear-gradient(135deg, var(--color-azure-pale) 0%, var(--color-accent-pale) 100%)" }}>
+              <div className="text-center py-4 sm:py-5 rounded-xl mb-4 sm:mb-6" style={{ background: "linear-gradient(135deg, var(--color-azure-pale) 0%, var(--color-accent-pale) 100%)" }}>
                 <p className="text-xs text-ink-tertiary mb-1.5 uppercase tracking-wide font-medium">
                   Estimated Funding
                 </p>
-                <p className="text-4xl sm:text-5xl font-bold text-azure-deep tabular-nums tracking-tight">
+                <p className="text-3xl sm:text-4xl lg:text-5xl font-bold text-azure-deep tabular-nums tracking-tight">
                   {formatCurrency(estimated)}
                 </p>
               </div>
