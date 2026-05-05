@@ -48,7 +48,7 @@ const badges = [
     ),
   },
   {
-    label: "4,000+ Businesses Funded",
+    label: "1,400 Businesses Funded",
     icon: (
       <svg viewBox="0 0 20 20" fill="none" className="w-4 h-4" aria-hidden="true">
         <path

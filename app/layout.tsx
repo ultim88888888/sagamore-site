@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     template: "%s | Sagamore Financial Group",
   },
   description:
-    "Sagamore Financial Group connects growing businesses with the right capital — from lines of credit and SBA loans to equipment financing and beyond. $45M+ deployed, 4,000+ companies backed.",
+    "Sagamore Financial Group connects growing businesses with the right capital — from lines of credit and SBA loans to equipment financing and beyond. $85M deployed, 1,400 companies backed.",
   keywords: [
     "business funding",
     "small business loans",

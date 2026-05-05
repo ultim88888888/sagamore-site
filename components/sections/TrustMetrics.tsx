@@ -7,8 +7,8 @@
  */
 
 const metrics = [
-  "$45M+ Capital Deployed",
-  "4,000+ Companies Backed",
+  "$85M Capital Deployed",
+  "1,400 Companies Backed",
   "24hr Average Turnaround",
   "12 Funding Products",
   "500+ Minimum Credit Score",
