@@ -95,8 +95,8 @@ const pillars = [
 ];
 
 const stats = [
-  { value: "$45M+", label: "Capital Deployed" },
-  { value: "4,000+", label: "Companies Backed" },
+  { value: "$85M", label: "Capital Deployed" },
+  { value: "1,400", label: "Companies Backed" },
   { value: "24hrs", label: "Avg. Turnaround" },
 ];
 

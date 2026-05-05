@@ -116,8 +116,8 @@ export function HeroSection() {
             {/* Trust stats — inline on dark */}
             <div className="flex flex-wrap gap-x-8 gap-y-3 mb-8">
               {[
-                { value: "$45M+", label: "Capital Deployed" },
-                { value: "4,000+", label: "Companies Backed" },
+                { value: "$85M", label: "Capital Deployed" },
+                { value: "1,400", label: "Companies Backed" },
                 { value: "24hrs", label: "Avg. Turnaround" },
               ].map((stat) => (
                 <div key={stat.label}>

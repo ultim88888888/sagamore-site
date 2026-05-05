@@ -15,14 +15,14 @@ export const metadata: Metadata = {
     absolute: "Small Business Funding & Loans | Sagamore Financial Group",
   },
   description:
-    "Access lines of credit, SBA loans, equipment financing, and 9 more funding products through one application. $45M+ deployed for 4,000+ businesses. Apply in minutes.",
+    "Access lines of credit, SBA loans, equipment financing, and 9 more funding products through one application. $85M deployed for 1,400 businesses. Apply in minutes.",
   alternates: {
     canonical: SITE_URL,
   },
   openGraph: {
     title: "Small Business Funding & Loans | Sagamore Financial Group",
     description:
-      "Access lines of credit, SBA loans, equipment financing, and 9 more funding products through one application. $45M+ deployed for 4,000+ businesses.",
+      "Access lines of credit, SBA loans, equipment financing, and 9 more funding products through one application. $85M deployed for 1,400 businesses.",
     url: SITE_URL,
     type: "website",
     images: [{ url: "/og/homepage.png", width: 1200, height: 630 }],
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Small Business Funding & Loans | Sagamore Financial Group",
     description:
-      "Access lines of credit, SBA loans, equipment financing, and 9 more funding products through one application. $45M+ deployed for 4,000+ businesses.",
+      "Access lines of credit, SBA loans, equipment financing, and 9 more funding products through one application. $85M deployed for 1,400 businesses.",
     images: ["/og/homepage.png"],
   },
 };
@@ -43,7 +43,7 @@ export default function HomePage() {
       <JsonLd
         data={webPageSchema(
           "Small Business Funding & Loans",
-          "Access lines of credit, SBA loans, equipment financing, and 9 more funding products through one application. $45M+ deployed for 4,000+ businesses. Apply in minutes.",
+          "Access lines of credit, SBA loans, equipment financing, and 9 more funding products through one application. $85M deployed for 1,400 businesses. Apply in minutes.",
           ""
         )}
       />
